@@ -1,0 +1,55 @@
+# Course information
+
+# Before
+
+# PART 1: STAGING WORKFLOW 
+
+  # Step 1: Write the trigger
+    # Pull request will be open with overview of workflow file. 
+    # User commits the proper trigger
+    # We validate
+
+  # Step 2: Choose the environment for AWS
+    # User commits proper environment in workflow
+    # We validate
+
+  # Step 3: Write the steps for the workflow
+    # User writes the steps for the workflow, using recommended existing GitHub steps
+    # We validate
+
+# PART 2: AWS CONFIGURATION
+
+  # Step 4: Confirm AWS configuration
+    # Confirm AWS account configuration by responding with :+1:
+
+  # Step 5: Enter environment variables
+    # Hopefully this has its own trigger, but I doubt it.
+    # Respond with :+1:
+    # Validate if possible
+
+  # Step 6: Create aws-config.yml
+
+  # Step 7: Create sam-template.yml
+
+# PART 3: TEST STAGING WORKFLOW 
+
+  # Step 8: Test staging action
+
+# PART 4: PRODUCTION DEPLOYMENT WORKFLOW
+
+  # Step 9: Write the trigger
+    # Pull request will be open with overview of workflow file. 
+    # User commits the proper trigger
+    # We validate
+
+  # Step 10: Choose the environment for AWS
+    # User commits proper environment in workflow
+    # We validate
+  
+  # Step 11: Write the steps for the workflow
+    # User writes the steps for the workflow, using recommended existing GitHub steps
+    # We validate
+
+# PART 5: TEST PRODUCTION WORKFLOW
+
+  # Step 12: Test the production deployment workflow
