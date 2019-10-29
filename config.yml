@@ -1,7 +1,19 @@
 # Course information
+title: Continuous Delivery with GitHub Actions
+tagline: Deploy to staging and production with GitHub Actions
+description: Create two deployment workflows using AWS.
+tags:
+  - GitHub Actions
+  - Workflows
+  - CD
+  - Continuous Delivery
+  - Deployment
+template:
+    name: continuous-delivery
+    repo: continuous-delivery-template
 
 # Before
-
+before:
   # Repository must have a master branch with the working code, and 5 other branches:
     # staging-workflow: with the workflow file stub for staging from label
     # aws-configuration: with blank/stub files for `aws-config.yml` and `sam-template.yml`
@@ -14,59 +26,99 @@
   # Step 1: Configure a trigger based on labels
   
     # Before step: Pull request will be open with overview of workflow file. 
-      # type: Open pull request 
-      # base: master
-      # compare: staging-workflow
-      # title: 
-      # body: 01_label-trigger.md
+- type: createPullRequest
+  title: Create a staging workflow
+  body: 01_label-trigger.md
+  head: staging-workflow
+
       # protected branch
-    
-    # event: User commits the proper trigger
+- type: updateBranchProtection
+  
+steps: 
+
+   # event: User commits the proper trigger
+- title: Configure a trigger based on labels
+  description: Configure the workflow trigger based on an a label being added
+  event: pull_request
+  link: '{{ repoUrl }}/pulls/1'
+  actions:
     
     # We validate that trigger is correct
+  - type: gate  
 
   # Step 2: Choose the environment for AWS
 
     # We tell the user to write the proper environment in the workflow file
-    # type: respond
-    # with: 02_environment.md
+  - type: respond
+    with: 02_environment.md
 
     # event: User commits proper environment in workflow
+- title: Choose the environment for AWS
+  description: Choose the Ubuntu environment for our app
+  event: pull_request
+  link: '{{ repoUrl }}/pulls/1'
+  actions:
 
     # We validate
+  - type: gate
 
   # Step 3: Write the steps for the staging workflow
-
-    # We tell the user to write the proper steps for the workflow
-    # type: respond
-    # with: 03_workflow-steps.md
+      # We tell the user to write the proper steps for the workflow
+  - type: respond
+    with: 03_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
-    
+- title: Write the steps for the staging workflow
+  description: Write the steps for the staging deployment workflow
+  event: pull_request
+  link: '{{ repoUrl }}/pulls/1'
+  actions:
+
     # We validate
+  - type: gate
 
     # We approve
-
+  - type: createReview
+    event: APPROVE
   # Step 4: Merge the staging workflow
-
     # We tell the user to merge
-    # with: 04_merge.md
+    body: 04_merge.md
 
     # event: merge
+- title: Merge the staging workflow
+  description: Merge this staging workflow pull request
+  event: pull_request.closed
+  link: '{{ repoUrl }}/pulls/1'
+  actions:
 
-    # we point user to new PR
-    # with: 0X_next-steps.md
-    # data/url: {{ url }} = next url for aws configuration PR
+    # we make sure it's merged
+  - type: gate
+    left: '%payload.pull_request.merged%'
+
 
 # PART 2: AWS CONFIGURATION
 
   # Step 5: Confirm AWS configuration
     
     # We open a PR, we ask user to confirm AWS account configuration by responding with :+1:
-    # base: master, compare: aws-configuration
-    # title:
-    # body: 05_confirm-aws.md
+  - type: createPullRequest
+    title: Configure AWS
+    body: 05_confirm-aws.md
+    head: aws-configuration
+    action_id: aws-pr
 
+    # we point user to new PR
+  - type: respond
+    with: 0X_next-steps.md
+    data:
+      url: '%actions.newPR.data.html_url%'
+
+- title: Confirm AWS configuration
+  description: Create an AWS account by the following specifications, and confirm here
+  event: 
+  link: '{{ repoUrl }}/pulls/2'
+  actions:
+    
     # event: responding with :+1:
 
   # Step 6: Enter environment variables
