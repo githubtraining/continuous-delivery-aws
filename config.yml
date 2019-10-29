@@ -2,54 +2,152 @@
 
 # Before
 
+  # Repository must have a master branch with the working code, and 5 other branches:
+    # staging-workflow: with the workflow file stub for staging from label
+    # aws-configuration: with blank/stub files for `aws-config.yml` and `sam-template.yml`
+    # production-deployment-workflow: with the workflow file stub for production deploy from merge
+    # staging-test: with a small change to the app that can be seen in staging
+    # production-test: with a small change to the app that can be seen in production
+
 # PART 1: STAGING WORKFLOW 
 
-  # Step 1: Write the trigger
-    # Pull request will be open with overview of workflow file. 
-    # User commits the proper trigger
-    # We validate
+  # Step 1: Configure a trigger based on labels
+  
+    # Before step: Pull request will be open with overview of workflow file. 
+      # type: Open pull request 
+      # base: master
+      # compare: staging-workflow
+      # title: 
+      # body: 01_label-trigger.md
+      # protected branch
+    
+    # event: User commits the proper trigger
+    
+    # We validate that trigger is correct
 
   # Step 2: Choose the environment for AWS
-    # User commits proper environment in workflow
+
+    # We tell the user to write the proper environment in the workflow file
+    # type: respond
+    # with: 02_environment.md
+
+    # event: User commits proper environment in workflow
+
     # We validate
 
-  # Step 3: Write the steps for the workflow
-    # User writes the steps for the workflow, using recommended existing GitHub steps
+  # Step 3: Write the steps for the staging workflow
+
+    # We tell the user to write the proper steps for the workflow
+    # type: respond
+    # with: 03_workflow-steps.md
+
+    # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
+    
     # We validate
+
+    # We approve
+
+  # Step 4: Merge the staging workflow
+
+    # We tell the user to merge
+    # with: 04_merge.md
+
+    # event: merge
+
+    # we point user to new PR
+    # with: 0X_next-steps.md
+    # data/url: {{ url }} = next url for aws configuration PR
 
 # PART 2: AWS CONFIGURATION
 
-  # Step 4: Confirm AWS configuration
-    # Confirm AWS account configuration by responding with :+1:
+  # Step 5: Confirm AWS configuration
+    
+    # We open a PR, we ask user to confirm AWS account configuration by responding with :+1:
+    # base: master, compare: aws-configuration
+    # title:
+    # body: 05_confirm-aws.md
 
-  # Step 5: Enter environment variables
-    # Hopefully this has its own trigger, but I doubt it.
-    # Respond with :+1:
+    # event: responding with :+1:
+
+  # Step 6: Enter environment variables
+
+    # We ask user to enter their environment variables into this repository.
+    # with: 06_env-variables.md
+
+    # event: Hopefully this has its own trigger, but I doubt it. If not, ask them to respond with :+1:
+    
     # Validate if possible
 
-  # Step 6: Create aws-config.yml
+  # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
 
-  # Step 7: Create sam-template.yml
+    # We explain what the purpose of these templates are, and ask the user to approve 
+    # with: 07_approve.md
+
+    # event: approval
+
+    # we merge
+
+    # we point user to next pull request
+    # with: 0X_next-steps.md
+    # data/url: {{ url }} = next url for test PR
 
 # PART 3: TEST STAGING WORKFLOW 
 
-  # Step 8: Test staging action
+  # Step 8: Test the staging action
+
+    # We ask the user to test this action by adding a label
+    # base: master, compare: staging-test
+    # title:
+    # body: 08_test.md
+
+    # event: label added, and deployment successful
+
+    # We respond and tell them what to expect
+    # with: 08_deployment.md
+    # data/url: {{ url }} = next url for production PR
 
 # PART 4: PRODUCTION DEPLOYMENT WORKFLOW
 
-  # Step 9: Write the trigger
+  # Step 9: Write the production deployment trigger
+
     # Pull request will be open with overview of workflow file. 
-    # User commits the proper trigger
+    # base: master, compare: production-deployment-workflow
+    # title:
+    # with: 09_merge-trigger.md
+
+    # event: User commits the proper trigger
+
     # We validate
 
   # Step 10: Choose the environment for AWS
-    # User commits proper environment in workflow
+
+    # We tell the user to write the proper environment
+    # type: respond
+    # with: 10_environment.md
+
+    # event: commit, user writes the environment
+    
     # We validate
   
-  # Step 11: Write the steps for the workflow
-    # User writes the steps for the workflow, using recommended existing GitHub steps
+  # Step 11: Write the steps for the production workflow
+
+    # We tell the user to write the proper steps for the workflow
+    # type: respond
+    # with: 11_workflow-steps.md
+
+    # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
+    
     # We validate
 
-# PART 5: TEST PRODUCTION WORKFLOW
+    # We approve
 
-  # Step 12: Test the production deployment workflow
+# PART 5: TEST WORKFLOWS
+
+  # Step 12: Merge this pull request and test the production deployment workflow
+  # We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
+  # with: 12_merge.md
+  
+  # event: merge
+  
+  # final response: congratulations
+  # with: 12_congratulations.md
