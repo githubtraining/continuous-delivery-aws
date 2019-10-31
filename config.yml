@@ -266,7 +266,6 @@ steps:
     body: 12_merge.md
     event: APPROVE
 
-
 # event: merge
 
 - title: Merge this pull request
