@@ -44,7 +44,7 @@ steps:
   actions:
     
     # We validate that trigger is correct
-  - type: gate  
+  #- type: gate  
 
   # Step 2: Choose the environment for AWS
 
@@ -60,7 +60,7 @@ steps:
   actions:
 
     # We validate
-  - type: gate
+  #- type: gate
 
   # Step 3: Write the steps for the staging workflow
       # We tell the user to write the proper steps for the workflow
@@ -75,7 +75,7 @@ steps:
   actions:
 
     # We validate
-  - type: gate
+  #- type: gate
 
     # We approve
   - type: createReview
@@ -113,93 +113,174 @@ steps:
     data:
       url: '%actions.newPR.data.html_url%'
 
+    # event: responding with a comment
+
 - title: Confirm AWS configuration
   description: Create an AWS account by the following specifications, and confirm here
-  event: 
+  event: issue_comment.created
   link: '{{ repoUrl }}/pulls/2'
   actions:
     
-    # event: responding with :+1:
-
   # Step 6: Enter environment variables
 
     # We ask user to enter their environment variables into this repository.
-    # with: 06_env-variables.md
 
-    # event: Hopefully this has its own trigger, but I doubt it. If not, ask them to respond with :+1:
-    
+    - type: respond
+      with: 06_env-variables.md
+
+    # event: Respond with a comment
+ - title: Enter environment variables
+   description: Enter your AWS environment variables into this repository, and confirm here
+   event: issue_comment.created
+   link: '{{ repoUrl }}/pulls/2'
+   actions:   
+
     # Validate if possible
 
   # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
 
     # We explain what the purpose of these templates are, and ask the user to approve 
-    # with: 07_approve.md
+    
+    - type: respond
+      with: 07_approve.md
 
     # event: approval
 
+ - title: Approve pull request
+   description: Approve pull request adding the aws-config.yml and sam-template.yml
+   event: pull_request_review
+   link: '{{ repoUrl }}/pulls/2'
+   actions:   
+
+    # we make sure it's approved
+    - type: gate
+      left: '%payload.review.state%'
+      operator: ===
+      right: approved
+      else:
+      - type: respond
+        with: 07_approve-pr.md
+      
     # we merge
+    - type: merge
+      head: aws-configuration
+      base: master
+
+    # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
+    - type: createPullRequest
+      title: Test the staging action
+      body: 08_test.md
+      head: staging-test
+      action_id: testPR
 
     # we point user to next pull request
-    # with: 0X_next-steps.md
-    # data/url: {{ url }} = next url for test PR
+    - type: respond
+      with: 0X_next-steps.md
+      data:
+        url: '%actions.testPR.data.html_url%'
 
 # PART 3: TEST STAGING WORKFLOW 
 
   # Step 8: Test the staging action
 
-    # We ask the user to test this action by adding a label
-    # base: master, compare: staging-test
-    # title:
-    # body: 08_test.md
-
     # event: label added, and deployment successful
 
+ - title: Test the staging action
+   description: Test the new action to deploy labeled pull requests to staging
+   event: pull_request.labeled
+   link: '{{ repoUrl }}/pulls/3'
+   actions:   
+   
+    # We need to prepare next PR for them where they write the prod deployment workflow
+    - type: createPullRequest
+      title: Production deployment workflow
+      body: 09_merge-trigger.md
+      head: production-deployment-workflow
+      action_id: prodPR
+
     # We respond and tell them what to expect
-    # with: 08_deployment.md
-    # data/url: {{ url }} = next url for production PR
+    - type: respond
+      with: 08_deployment.md
+      data/url: '%actions.prodPR.data.html_url%'
 
 # PART 4: PRODUCTION DEPLOYMENT WORKFLOW
 
   # Step 9: Write the production deployment trigger
 
-    # Pull request will be open with overview of workflow file. 
-    # base: master, compare: production-deployment-workflow
-    # title:
-    # with: 09_merge-trigger.md
-
     # event: User commits the proper trigger
 
+ - title: Write the production deployment trigger
+   description: Write the production deployment trigger in the new workflow
+   event: pull_request
+   link: '{{ repoUrl }}/pulls/3'
+   actions: 
+
     # We validate
+    #- type: gate
 
   # Step 10: Choose the environment for AWS
 
     # We tell the user to write the proper environment
-    # type: respond
-    # with: 10_environment.md
+    - type: respond
+      with: 10_environment.md
 
     # event: commit, user writes the environment
     
+  - title: Choose the environment for AWS
+    description: Commit the proper environment for AWS to the workflow file
+    event: pull_request
+    link: '{{ repoUrl }}/pulls/3'
+    actions:
+
     # We validate
-  
+    # - type: gate
+
   # Step 11: Write the steps for the production workflow
 
     # We tell the user to write the proper steps for the workflow
-    # type: respond
-    # with: 11_workflow-steps.md
+    type: respond
+    with: 11_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
     
+  - title: Write the steps for the production workflow
+    description: Write the steps for the production deployment to the workflow file
+    event: pull_request
+    link: '{{ repoUrl }}/pulls/3'
+    actions:
+
     # We validate
+    # type: gate
 
     # We approve
+  - type: createReview
+    event: APPROVE
 
 # PART 5: TEST WORKFLOWS
 
   # Step 12: Merge this pull request and test the production deployment workflow
+
   # We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
-  # with: 12_merge.md
+  - type: respond
+    with: 12_merge.md
   
   # event: merge
   
+  - title: Merge this pull request
+    description: Merge this pull request and test the production deployment workflow
+    event: pull_request.closed
+    link: '{{ repoUrl }}/pulls/3'
+    actions:
+    
+    # check that its merged
+    - type: gate
+    every: true
+    gates:
+    - left: '%payload.action%'
+      operator: ===
+      right: closed
+    - left: '%payload.pull_request.merged%'
+
   # final response: congratulations
-  # with: 12_congratulations.md
+    - type: respond
+      with: 12_congratulations.md
