@@ -257,16 +257,15 @@ steps:
   # type: gate
 
   # We approve
-  - type: createReview
-    event: APPROVE
-
 # PART 5: TEST WORKFLOWS
 
 # Step 12: Merge this pull request and test the production deployment workflow
 
 # We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
-- type: respond
-  with: 12_merge.md
+  - type: createReview
+    body: 12_merge.md
+    event: APPROVE
+
 
 # event: merge
 
