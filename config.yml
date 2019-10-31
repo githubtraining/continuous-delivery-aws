@@ -160,7 +160,7 @@ steps:
       with: 07_approve-pr.md
     
   # we merge
-  - type: merge
+  - type: mergeBranch
     head: aws-configuration
     base: master
 
