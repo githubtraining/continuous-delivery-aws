@@ -41,7 +41,6 @@ steps:
   event: pull_request
   link: '{{ repoUrl }}/pulls/1'
   actions:
-    
     # We validate that trigger is correct
   #- type: gate  
 
@@ -104,13 +103,13 @@ steps:
     title: Configure AWS
     body: 05_confirm-aws.md
     head: aws-configuration
-    action_id: aws-pr
+    action_id: awsPR
 
     # we point user to new PR
   - type: respond
     with: 0X_next-steps.md
     data:
-      url: '%actions.newPR.data.html_url%'
+      url: '%actions.awsPR.data.html_url%'
 
     # event: responding with a comment
 
