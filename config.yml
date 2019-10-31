@@ -199,7 +199,8 @@ steps:
   # We respond and tell them what to expect
   - type: respond
     with: 08_deployment.md
-    data/url: '%actions.prodPR.data.html_url%'
+    data:
+      url: '%actions.prodPR.data.html_url%'
 
 # PART 4: PRODUCTION DEPLOYMENT WORKFLOW
 
