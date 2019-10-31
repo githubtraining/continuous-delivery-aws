@@ -275,10 +275,10 @@ steps:
   - type: gate
     every: true
     gates:
-  - left: '%payload.action%'
-    operator: ===
-    right: closed
-  - left: '%payload.pull_request.merged%'
+    - left: '%payload.action%'
+      operator: ===
+      right: closed
+    - left: '%payload.pull_request.merged%'
 
 # final response: congratulations
   - type: respond
