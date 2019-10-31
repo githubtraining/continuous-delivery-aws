@@ -123,8 +123,8 @@ steps:
 
     # We ask user to enter their environment variables into this repository.
 
-    - type: respond
-      with: 06_env-variables.md
+  - type: respond
+    with: 06_env-variables.md
 
     # event: Respond with a comment
 - title: Enter environment variables
@@ -156,8 +156,8 @@ steps:
     operator: ===
     right: approved
     else:
-    - type: respond
-      with: 07_approve-pr.md
+  - type: respond
+    with: 07_approve-pr.md
     
   # we merge
   - type: mergeBranch
@@ -237,8 +237,8 @@ steps:
 # Step 11: Write the steps for the production workflow
 
   # We tell the user to write the proper steps for the workflow
-  type: respond
-  with: 11_workflow-steps.md
+  - type: respond
+    with: 11_workflow-steps.md
 
   # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
   
@@ -252,8 +252,8 @@ steps:
   # type: gate
 
   # We approve
-- type: createReview
-  event: APPROVE
+  - type: createReview
+    event: APPROVE
 
 # PART 5: TEST WORKFLOWS
 
