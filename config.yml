@@ -91,7 +91,12 @@ steps:
 
     # we make sure it's merged
   - type: gate
-    left: '%payload.pull_request.merged%'
+    every: true
+    gates:
+    - left: '%payload.action%'
+      operator: ===
+      right: closed
+    - left: '%payload.pull_request.merged%'
 
 
 # PART 2: AWS CONFIGURATION
