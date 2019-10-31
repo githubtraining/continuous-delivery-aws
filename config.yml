@@ -273,8 +273,8 @@ steps:
   
   # check that its merged
   - type: gate
-  every: true
-  gates:
+    every: true
+    gates:
   - left: '%payload.action%'
     operator: ===
     right: closed
