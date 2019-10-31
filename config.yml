@@ -160,7 +160,7 @@ steps:
     left: '%payload.review.state%'
     operator: ===
     right: approved
-      else:
+    else:
     - type: respond
       with: 07_approve-pr.md
     
