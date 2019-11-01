@@ -8,12 +8,12 @@ Amazon S3 Buckets are a very flexible type of data storage -- they can be config
 
 ## Step 5: Confirm AWS S3 configuration
 
-### :keyboard: Activity: Create an AWS account by the following specifications, and confirm here
+### :keyboard: Activity: Create an S3 bucket
 
 1. Navigate to the [Amazon S3](https://s3.console.aws.amazon.com/s3/home) service and click on **Create bucket**.
     - See [_Create a Bucket_](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) on AWS documentation for the most detailed instructions.
 1. Name the bucket whatever you'd like, and jot the name down
-1. Select a region, and jot it down. You'll need it later. These examples use **us-west-2**. If you'd like to choose another region, make sure to update the `aws-config.yml` file to match.
+1. Select a region, and jot it down. You'll need it later. These examples use **US West (Oregon)**, also known as **us-west-2**. If you'd like to choose another region, make sure to update the `aws-config.yml` file to match.
 1. For all other options, accept the defaults.
 1. In `.github/aws-config.yml` on this branch, change the value of `s3_bucket:` to match your chosen bucket name. 
 1. In the same file, confirm that the `region:` value matches your chosen region for the S3 bucket.
