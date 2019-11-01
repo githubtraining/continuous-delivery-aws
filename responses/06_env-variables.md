@@ -17,13 +17,15 @@ When you create an access key, the key pair is active by default, and you can us
 2. Once you are done, confirm here by commenting anything in this pull request
 3. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
 4. In the navigation pane, choose **Users**
-5. Choose the name of the user whose access keys you want to manage, and then choose the Security credentials tab
-6. In the Access keys section:
+5. Create a new user with **programmatic access**
+6. When setting permissions, search for and select **AmazonS3FullAccess**
+7. In the Access keys section:
   - Choose **Create access key**
+  - Create a 
   - Then, choose **Download .csv file** to save the access key ID and secret access key to a CSV file on your computer
   - Store the file in a secure location
-    - ⚠️_You will not have access to the secret access key again after this dialog box closes_
+    - ⚠️ _You will not have access to the secret access key again after this dialog box closes_
   - After you download the CSV file, choose **Close**
-7. Save the `AWS_ACCESS` token in the **Settings > Secrets**
-8. Save the `AWS_SECRET` token in the **Settings > Secrets**
-9. Once you are done, confirm here by commenting anything in this pull request
+8. Save the `AWS_ACCESS` token in the **Settings > Secrets**
+9. Save the `AWS_SECRET` token in the **Settings > Secrets**
+10. Once you are done, confirm here by commenting anything in this pull request
