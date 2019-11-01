@@ -99,7 +99,9 @@ steps:
       right: closed
     - left: '%payload.pull_request.merged%'
 
-
+    # we reprotect master for the next PR
+  - type: updateBranchProtection
+  
 # PART 2: AWS CONFIGURATION
 
   # Step 5: Confirm AWS configuration
