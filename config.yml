@@ -77,12 +77,25 @@ steps:
     # event: User commits proper environment in workflow
 - title: Trigger a job on specific labels
   description: Use a conditional to trigger a job on a specific label
-  event: pull_request
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/1'
   actions:
+    - type: getFileContents
+      action_id: fileContents
+      filename: '.github/workflows/staging-worfklow.yml'
+      required: false
 
     # We validate
-  #- type: gate
+    - type: gate
+      left: '/contains(github.event.pull_request.labels.*.name, 'stage')/gi'
+      operator: test
+      right: '%actions.fileContents%'
+      else:
+        - type: respond
+          with: 0Xe_unexpected.md
+          data:
+            expected: the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/deploy-staging.yml` file.
+
 
   # Step 3: Write the steps for the staging workflow
       # We tell the user to write the proper steps for the workflow
