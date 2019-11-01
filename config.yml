@@ -99,8 +99,8 @@ steps:
 
   # Step 3: Write the steps for the staging workflow
       # We tell the user to write the proper steps for the workflow
-  - type: respond
-    with: 03_workflow-steps.md
+    - type: respond
+      with: 03_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
 - title: Write the steps for the staging workflow
