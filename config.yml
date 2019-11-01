@@ -87,7 +87,7 @@ steps:
   # Step 4: Merge the staging workflow
     # We tell the user to merge
   - type: respond
-    with: 04_merge.md
+    with: 04_merge-staging.md
 
     # event: merge
 - title: Merge the staging workflow
