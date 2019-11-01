@@ -1,6 +1,5 @@
 # Environment Variables
 
-
 ### Access keys for IAM Users
 
 To automate the authentication, AWS recommends using a process called [IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html). By creating a specific key for a purpose or individual, specific scopes can be specified and access can be tracked.
