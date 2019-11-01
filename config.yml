@@ -75,12 +75,13 @@ steps:
     # We validate
   #- type: gate
 
-    # We approve
-  - type: createReview
-    event: APPROVE
+    # We remove branch protections
+  - type: removeBranchProtection
+
   # Step 4: Merge the staging workflow
     # We tell the user to merge
-    body: 04_merge.md
+  - type: respond
+    with: 04_merge.md
 
     # event: merge
 - title: Merge the staging workflow
