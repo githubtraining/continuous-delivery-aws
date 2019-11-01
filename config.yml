@@ -25,7 +25,7 @@ before:
 - type: createLabel
   name: stage
   color: f87000
-  
+
 # PART 1: STAGING WORKFLOW 
 
   # Step 1: Configure a trigger based on labels
@@ -274,10 +274,12 @@ steps:
 
 # Step 12: Merge this pull request and test the production deployment workflow
 
+# We remove branch protections 
+  - type: removeBranchProtection 
+
 # We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
-  - type: createReview
-    body: 12_merge.md
-    event: APPROVE
+  - type: respond
+    with: 12_merge.md
 
 # event: merge
 
