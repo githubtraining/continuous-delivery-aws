@@ -103,8 +103,8 @@ steps:
       with: 03_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
-- title: Write the steps for the staging workflow
-  description: Write the steps for the staging deployment workflow
+- title: Deploy a Node.js app to AWS for the first time
+  description: Use the GitHub-created action to deploy to AWS
   event: pull_request
   link: '{{ repoUrl }}/pull/1'
   actions:
