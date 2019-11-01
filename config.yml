@@ -127,7 +127,7 @@ steps:
 
     # event: responding with a comment
 
-- title: Confirm AWS configuration
+- title: Confirm AWS S3 configuration
   description: Create an AWS account by the following specifications, and confirm here
   event: issue_comment.created
   link: '{{ repoUrl }}/pulls/2'
@@ -141,8 +141,8 @@ steps:
     with: 06_env-variables.md
 
     # event: Respond with a comment
-- title: Enter environment variables
-  description: Enter your AWS environment variables into this repository, and confirm here
+- title: Create and store environment variables
+  description: Create your AWS IAM secrets and enter them in this repository
   event: issue_comment.created
   link: '{{ repoUrl }}/pulls/2'
   actions:   
