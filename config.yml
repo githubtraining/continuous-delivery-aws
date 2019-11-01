@@ -283,7 +283,7 @@ steps:
 
 # event: merge
 
-- title: Merge this pull request
+- title: Merge the production workflow
   description: Merge this pull request and test the production deployment workflow
   event: pull_request.closed
   link: '{{ repoUrl }}/pulls/3'
