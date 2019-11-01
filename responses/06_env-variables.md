@@ -15,7 +15,6 @@ When you create an access key, the key pair is active by default, and you can us
 
 1. Add the tokens to this repository with the token name `AWS_SECRET_KEY`
 2. Once you are done, confirm here by commenting anything in this pull request
-
 3. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
 4. In the navigation pane, choose **Users**
 5. Choose the name of the user whose access keys you want to manage, and then choose the Security credentials tab
