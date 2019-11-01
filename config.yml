@@ -20,6 +20,12 @@ before:
     # production-deployment-workflow: with the workflow file stub for production deploy from merge
     # staging-test: with a small change to the app that can be seen in staging
 
+  # we create a staging label that will be used later to test
+
+- type: createLabel
+  name: stage
+  color: f87000
+  
 # PART 1: STAGING WORKFLOW 
 
   # Step 1: Configure a trigger based on labels
