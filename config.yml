@@ -101,7 +101,7 @@ steps:
 
     # we reprotect master for the next PR
   - type: updateBranchProtection
-  
+
 # PART 2: AWS CONFIGURATION
 
   # Step 5: Confirm AWS configuration
@@ -149,6 +149,10 @@ steps:
   
   - type: respond
     with: 07_approve.md
+
+  # we formally request their approval
+  - type: requestReviewFromRegistrant
+    pullRequest: Configure AWS
 
   # event: approval
 
