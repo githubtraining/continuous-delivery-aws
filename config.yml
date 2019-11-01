@@ -44,11 +44,29 @@ steps:
    # event: User commits the proper trigger
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
-  event: pull_request
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/1'
   actions:
+  - type: getTree
+    action_id: tree
+    recursive: true
+    sha: '%payload.pull_request.head.sha%'
+
     # We validate that trigger is correct
-  #- type: gate  
+  - type: gate
+    every: true
+    gates:
+    - left: '%payload.pull_request.title%'
+      operator: ===
+      right: Create a staging workflow
+    - left: '%actions.tree.data.tree%'
+      operator: includes
+      right: 'path:.github/workflows/staging-workflow.yml'
+    else:
+    - type: respond
+      with: 0Xe_unexpected.md
+      data:
+        expected: a commit on the `staging-workflow` branch that contains a file titled `staging-workflow.yml` inside of the direcotry `.github/workflows/`
 
   # Step 2: Choose the environment for AWS
 
