@@ -20,6 +20,12 @@ before:
     # production-deployment-workflow: with the workflow file stub for production deploy from merge
     # staging-test: with a small change to the app that can be seen in staging
 
+  # we create a staging label that will be used later to test
+
+- type: createLabel
+  name: stage
+  color: f87000
+
 # PART 1: STAGING WORKFLOW 
 
   # Step 1: Configure a trigger based on labels
@@ -39,7 +45,7 @@ steps:
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
     # We validate that trigger is correct
   #- type: gate  
@@ -54,7 +60,7 @@ steps:
 - title: Choose the environment for AWS
   description: Choose the Ubuntu environment for our app
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # We validate
@@ -69,24 +75,25 @@ steps:
 - title: Write the steps for the staging workflow
   description: Write the steps for the staging deployment workflow
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # We validate
   #- type: gate
 
-    # We approve
-  - type: createReview
-    event: APPROVE
+    # We remove branch protections
+  - type: removeBranchProtection
+
   # Step 4: Merge the staging workflow
     # We tell the user to merge
-    body: 04_merge.md
+  - type: respond
+    with: 04_merge.md
 
     # event: merge
 - title: Merge the staging workflow
   description: Merge this staging workflow pull request
   event: pull_request.closed
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # we make sure it's merged
@@ -98,6 +105,8 @@ steps:
       right: closed
     - left: '%payload.pull_request.merged%'
 
+    # we reprotect master for the next PR
+  - type: updateBranchProtection
 
 # PART 2: AWS CONFIGURATION
 
@@ -118,10 +127,10 @@ steps:
 
     # event: responding with a comment
 
-- title: Confirm AWS configuration
+- title: Confirm AWS S3 configuration
   description: Create an AWS account by the following specifications, and confirm here
   event: issue_comment.created
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:
     
   # Step 6: Enter environment variables
@@ -132,10 +141,10 @@ steps:
     with: 06_env-variables.md
 
     # event: Respond with a comment
-- title: Enter environment variables
-  description: Enter your AWS environment variables into this repository, and confirm here
+- title: Create and store environment variables
+  description: Create your AWS IAM secrets and enter them in this repository
   event: issue_comment.created
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:   
 
   # Validate if possible
@@ -147,12 +156,16 @@ steps:
   - type: respond
     with: 07_approve.md
 
+  # we formally request their approval
+  - type: requestReviewFromRegistrant
+    pullRequest: Configure AWS
+
   # event: approval
 
 - title: Approve pull request
   description: Approve pull request adding the aws-config.yml and sam-template.yml
   event: pull_request_review
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:   
 
   # we make sure it's approved
@@ -191,7 +204,7 @@ steps:
 - title: Test the staging action
   description: Test the new action to deploy labeled pull requests to staging
   event: pull_request.labeled
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:   
   
   # We need to prepare next PR for them where they write the prod deployment workflow
@@ -216,7 +229,7 @@ steps:
 - title: Write the production deployment trigger
   description: Write the production deployment trigger in the new workflow
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions: 
 
   # We validate
@@ -233,7 +246,7 @@ steps:
 - title: Choose the environment for AWS
   description: Commit the proper environment for AWS to the workflow file
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
 
   # We validate
@@ -250,7 +263,7 @@ steps:
 - title: Write the steps for the production workflow
   description: Write the steps for the production deployment to the workflow file
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
 
   # We validate
@@ -261,18 +274,19 @@ steps:
 
 # Step 12: Merge this pull request and test the production deployment workflow
 
-# We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
-  - type: createReview
-    body: 12_merge.md
-    event: APPROVE
+# We remove branch protections 
+  - type: removeBranchProtection 
 
+# We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
+  - type: respond
+    with: 12_merge.md
 
 # event: merge
 
-- title: Merge this pull request
+- title: Merge the production workflow
   description: Merge this pull request and test the production deployment workflow
   event: pull_request.closed
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
   
   # check that its merged
