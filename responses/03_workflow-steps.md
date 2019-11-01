@@ -4,6 +4,11 @@ So far, the workflow knows what the trigger is and what environment to run in. B
 
 ## Step 3: Write the steps for the staging workflow
 
+We won't be going into detail on the steps of this workflow, but it would be a good idea to check them out. You'll see that we're adding steps using existing actions for:
+
+- `actions/checkout`
+- `Deploy to AWS`
+
 ### :keyboard: Activity: Write the steps for the staging deployment workflow
 
 ```yml

@@ -4,7 +4,7 @@ We will be working with AWS for the deployment environment. AWS will do the work
 
 ### What are the options?
 
-You may want to choose a different environment based on your application. For example, if you are building an application to run on an Android phone, the environment may be X. If the app will be for a Mac, you may choose X. Options of environments may be.... 
+You may want to choose a different environment based on your application. You can read more about [virtual environments for GitHub Actions](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions) on GitHub Help.
 
 ## Step 2: Choose the environment for AWS
 
