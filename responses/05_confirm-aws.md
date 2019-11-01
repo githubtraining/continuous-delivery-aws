@@ -6,5 +6,4 @@
 
 1. Go to AWS
 2. Create a deploy token there
-3. Add the tokens to this repository with the token name `AWS_SECRET_KEY`
-4. Once you are done, confirm here by commenting anything in this pull request
+3. Once you are done, confirm here by commenting anything in this pull request
