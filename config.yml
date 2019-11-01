@@ -267,7 +267,7 @@ steps:
   # We validate
   # - type: gate
 
-# Step 11: Write the steps for the production workflow
+# Step 11: Create the Docker image and push it to GPR
 
   # We tell the user to write the proper steps for the workflow
   - type: respond
@@ -275,8 +275,8 @@ steps:
 
   # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
   
-- title: Write the steps for the production workflow
-  description: Write the steps for the production deployment to the workflow file
+- title: Create the Docker image and push it to GPR
+  description: Add a step to the workflow for building and pushing a Docker image to GPR.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
@@ -306,12 +306,7 @@ steps:
   
   # check that its merged
   - type: gate
-    every: true
-    gates:
-    - left: '%payload.action%'
-      operator: ===
-      right: closed
-    - left: '%payload.pull_request.merged%'
+    left: '%payload.pull_request.merged%'
 
 # final response: congratulations
   - type: respond
