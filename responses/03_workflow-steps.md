@@ -5,3 +5,48 @@ So far, the workflow knows what the trigger is and what environment to run in. B
 ## Step 3: Write the steps for the staging workflow
 
 ### :keyboard: Activity: Write the steps for the staging deployment workflow
+
+```yml
+name: Staging deployment
+
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    if: contains(github.event.pull_request.labels.*.name, 'stage')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: npm install and build webpack
+        run: |
+          npm install
+          npm run build
+      - uses: actions/upload-artifact@master
+        with:
+          name: webpack artifacts
+          path: public/
+
+  deploy:
+    name: Deploy Node.js app to AWS
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Download built artifact
+        uses: actions/download-artifact@master
+        with:
+          name: webpack artifacts
+          path: public
+
+      - name: Deploy to AWS
+        uses: docker://admiralawkbar/aws-nodejs:latest
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+```
