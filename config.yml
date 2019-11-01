@@ -82,7 +82,7 @@ steps:
   actions:
     - type: getFileContents
       action_id: fileContents
-      filename: '.github/workflows/staging-worfklow.yml'
+      filename: '.github/workflows/staging-workflow.yml'
       required: false
 
     # We validate
@@ -94,7 +94,7 @@ steps:
         - type: respond
           with: 0Xe_unexpected.md
           data:
-            expected: "the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/deploy-staging.yml` file"
+            expected: "the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/staging-workflow.yml` file"
 
 
   # Step 3: Write the steps for the staging workflow
