@@ -28,6 +28,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     if: contains(github.event.pull_request.labels.*.name, 'stage')
 ```
