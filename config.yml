@@ -47,10 +47,10 @@ steps:
   event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/1'
   actions:
-  - type: getTree
-    action_id: tree
-    recursive: true
-    sha: '%payload.pull_request.head.sha%'
+  - type: getFileContents
+    action_id: fileContents
+    filename: '.github/workflows/staging-worfklow.yml'
+    required: false
 
     # We validate that trigger is correct
   - type: gate
@@ -59,14 +59,14 @@ steps:
     - left: '%payload.pull_request.title%'
       operator: ===
       right: Create a staging workflow
-    - left: '%actions.tree.data.tree%'
-      operator: includes
-      right: 'path:.github/workflows/staging-workflow.yml'
+    - left: '/on:\s*\n\s*pull_request:\s*\n\s*types:\s*\[\s*labeled\s*\]\s*/gi'
+      operator: test
+      right: '%actions.fileContents%'
     else:
     - type: respond
       with: 0Xe_unexpected.md
       data:
-        expected: a commit on the `staging-workflow` branch that contains a file titled `staging-workflow.yml` inside of the direcotry `.github/workflows/`
+        expected: a commit on the `staging-workflow` branch that contains the file `.github/workflows/staging-workflow.yml` and a `pull_request` trigger
 
   # Step 2: Trigger a job on specific labels
 
