@@ -254,12 +254,12 @@ steps:
 
   # We tell the user to write the proper environment
   - type: respond
-    with: 10_environment.md
+    with: 10_deploy-prod.md
 
   # event: commit, user writes the environment
   
-- title: Choose the environment for AWS
-  description: Commit the proper environment for AWS to the workflow file
+- title: Complete the deployment to production workflow
+  description: Commit the steps to the production workflow that allow you to deploy on merge to master.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
