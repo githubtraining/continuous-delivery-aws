@@ -59,8 +59,8 @@ jobs:
       - name: Deploy to AWS
         uses: docker://admiralawkbar/aws-nodejs:latest
         env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_ACCESS_KEY: ${% raw %}{{ secrets.AWS_ACCESS_KEY }}{% endraw %}
+          AWS_SECRET_KEY: ${% raw %}{{ secrets.AWS_SECRET_KEY }}{% endraw %}
 
   Build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
@@ -79,6 +79,6 @@ jobs:
       - name: Build, Tag, Push
         uses: mattdavis0351/actions/docker-gpr@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${% raw %}{{ secrets.GITHUB_TOKEN }}{% endraw %}
           image-name: tic-tac-toe
 ```
