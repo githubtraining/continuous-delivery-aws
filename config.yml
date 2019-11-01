@@ -50,15 +50,15 @@ steps:
     # We validate that trigger is correct
   #- type: gate  
 
-  # Step 2: Choose the environment for AWS
+  # Step 2: Trigger a job on specific labels
 
     # We tell the user to write the proper environment in the workflow file
   - type: respond
-    with: 02_environment.md
+    with: 02_conditional.md
 
     # event: User commits proper environment in workflow
-- title: Choose the environment for AWS
-  description: Choose the Ubuntu environment for our app
+- title: Trigger a job on specific labels
+  description: Use a conditional to trigger a job on a specific label
   event: pull_request
   link: '{{ repoUrl }}/pull/1'
   actions:
