@@ -164,22 +164,6 @@ steps:
   link: '{{ repoUrl }}/pull/2'
   actions:
     
-  # Step 6: Enter environment variables
-
-    # We ask user to enter their environment variables into this repository.
-
-  - type: respond
-    with: 06_env-variables.md
-
-    # event: Respond with a comment
-- title: Create and store environment variables
-  description: Create your AWS IAM secrets and enter them in this repository
-  event: issue_comment.created
-  link: '{{ repoUrl }}/pull/2'
-  actions:   
-
-  # Validate if possible
-
 # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
 
   # We explain what the purpose of these templates are, and ask the user to approve 
