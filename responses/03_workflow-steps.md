@@ -52,6 +52,6 @@ jobs:
       - name: Deploy to AWS
         uses: docker://admiralawkbar/aws-nodejs:latest
         env:
-          AWS_ACCESS_KEY: ${% raw %}{{ secrets.AWS_ACCESS_KEY }}{% endraw %}
-          AWS_SECRET_KEY: ${% raw %}{{ secrets.AWS_SECRET_KEY }}{% endraw %}
+          AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
+          AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
 ```
