@@ -45,7 +45,7 @@ steps:
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
     # We validate that trigger is correct
   #- type: gate  
@@ -60,7 +60,7 @@ steps:
 - title: Choose the environment for AWS
   description: Choose the Ubuntu environment for our app
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # We validate
@@ -75,7 +75,7 @@ steps:
 - title: Write the steps for the staging workflow
   description: Write the steps for the staging deployment workflow
   event: pull_request
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # We validate
@@ -93,7 +93,7 @@ steps:
 - title: Merge the staging workflow
   description: Merge this staging workflow pull request
   event: pull_request.closed
-  link: '{{ repoUrl }}/pulls/1'
+  link: '{{ repoUrl }}/pull/1'
   actions:
 
     # we make sure it's merged
@@ -130,7 +130,7 @@ steps:
 - title: Confirm AWS S3 configuration
   description: Create an AWS account by the following specifications, and confirm here
   event: issue_comment.created
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:
     
   # Step 6: Enter environment variables
@@ -144,7 +144,7 @@ steps:
 - title: Create and store environment variables
   description: Create your AWS IAM secrets and enter them in this repository
   event: issue_comment.created
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:   
 
   # Validate if possible
@@ -165,7 +165,7 @@ steps:
 - title: Approve pull request
   description: Approve pull request adding the aws-config.yml and sam-template.yml
   event: pull_request_review
-  link: '{{ repoUrl }}/pulls/2'
+  link: '{{ repoUrl }}/pull/2'
   actions:   
 
   # we make sure it's approved
@@ -204,7 +204,7 @@ steps:
 - title: Test the staging action
   description: Test the new action to deploy labeled pull requests to staging
   event: pull_request.labeled
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:   
   
   # We need to prepare next PR for them where they write the prod deployment workflow
@@ -229,7 +229,7 @@ steps:
 - title: Write the production deployment trigger
   description: Write the production deployment trigger in the new workflow
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions: 
 
   # We validate
@@ -246,7 +246,7 @@ steps:
 - title: Choose the environment for AWS
   description: Commit the proper environment for AWS to the workflow file
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
 
   # We validate
@@ -263,7 +263,7 @@ steps:
 - title: Write the steps for the production workflow
   description: Write the steps for the production deployment to the workflow file
   event: pull_request
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
 
   # We validate
@@ -286,7 +286,7 @@ steps:
 - title: Merge the production workflow
   description: Merge this pull request and test the production deployment workflow
   event: pull_request.closed
-  link: '{{ repoUrl }}/pulls/3'
+  link: '{{ repoUrl }}/pull/3'
   actions:
   
   # check that its merged
