@@ -49,7 +49,7 @@ steps:
   actions:
   - type: getFileContents
     action_id: fileContents
-    filename: '.github/workflows/staging-worfklow.yml'
+    filename: '.github/workflows/staging-workflow.yml'
     required: false
 
     # We validate that trigger is correct
@@ -66,7 +66,7 @@ steps:
     - type: respond
       with: 0Xe_unexpected.md
       data:
-        expected: a commit on the `staging-workflow` branch that contains the file `.github/workflows/staging-workflow.yml` and a `pull_request` trigger
+        expected: commit the file `.github/workflows/staging-workflow.yml` and a `pull_request` trigger on the `staging-workflow` branch
 
   # Step 2: Trigger a job on specific labels
 
