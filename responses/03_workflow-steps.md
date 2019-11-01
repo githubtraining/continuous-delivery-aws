@@ -16,7 +16,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
 ### :keyboard: Activity: Deploy a Node.js app to AWS for the first time
 
 1. In a new tab, [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
-    > Note: You may need a credit card to create an AWS account. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to AWS.
+    > Note: You may need a credit card to create an AWS account. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to AWS. If you'd like to continue with the course without an AWS account, Learning Lab will still respond, but none of the deployments will work.
 1. **[Add a user](https://console.aws.amazon.com/iam/home?#/users$new?step=details)** in the IAM service with administrator permission.
     - For detailed instructions on adding users, see [_Creating an IAM User in Your AWS Account_](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in the AWS docs.
 1. In the confirmation screen, copy both the **Access key ID** and the **Secret access key** to a safe space. We'll use these in the next few steps as follows:

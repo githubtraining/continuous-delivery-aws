@@ -158,9 +158,9 @@ steps:
 
     # event: responding with a comment
 
-- title: Confirm AWS S3 configuration
-  description: Create an AWS account by the following specifications, and confirm here
-  event: issue_comment.created
+- title: Create an S3 bucket
+  description: Create an S3 bucket in AWS and tell the action where to find it
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/2'
   actions:
     
