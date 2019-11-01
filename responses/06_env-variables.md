@@ -18,7 +18,7 @@ When you create an access key, the key pair is active by default, and you can us
 3. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
 4. In the navigation pane, choose **Users**
 5. Create a new user with **programmatic access**
-6. When setting permissions, search for and select **AmazonS3FullAccess** and **AdministratorAccess**
+6. When setting permissions, search for and select **AdministratorAccess**
 7. Use a tag that will identify this token pair, like **Deployment Learning Lab**
 8. **Download .csv file** to save the access key ID and secret access key to a CSV file on your computer
    - Store the file in a secure location
