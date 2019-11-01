@@ -5,3 +5,17 @@ We will be working with AWS for the deployment environment. AWS will do the work
 ## Step 2: Choose the environment for AWS
 
 ### :keyboard: Activity: Choose the Ubuntu environment for our app
+
+```yml
+name: Staging deployment
+
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    if: contains(github.event.pull_request.labels.*.name, 'stage')
+
+    runs-on: ubuntu-latest
+```
