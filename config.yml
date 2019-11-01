@@ -87,7 +87,7 @@ steps:
 
     # We validate
     - type: gate
-      left: '/contains(github.event.pull_request.labels.*.name, 'stage')/gi'
+      left: "/\s*if:\s*contains\s*\(\s*github\.event\.pull_request\.labels\.\*\.name,\s*'stage'\)/gi"
       operator: test
       right: '%actions.fileContents%'
       else:
