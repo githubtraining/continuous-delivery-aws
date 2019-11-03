@@ -49,7 +49,7 @@ steps:
   actions:
   - type: getFileContents
     action_id: fileContents
-    filename: '.github/workflows/staging-workflow.yml'
+    filename: '.github/workflows/deploy-staging.yml'
     required: false
 
     # We validate that trigger is correct
@@ -66,7 +66,7 @@ steps:
     - type: respond
       with: 0Xe_unexpected.md
       data:
-        expected: commit the file `.github/workflows/staging-workflow.yml` and a `pull_request` trigger on the `staging-workflow` branch
+        expected: commit the file `.github/workflows/deploy-staging.yml` and a `[labeled]` trigger on the `staging-workflow` branch
 
   # Step 2: Trigger a job on specific labels
 
@@ -82,7 +82,7 @@ steps:
   actions:
     - type: getFileContents
       action_id: fileContents
-      filename: '.github/workflows/staging-workflow.yml'
+      filename: '.github/workflows/deploy-staging.yml'
       required: false
 
     # We validate
@@ -94,7 +94,7 @@ steps:
         - type: respond
           with: 0Xe_unexpected.md
           data:
-            expected: "the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/staging-workflow.yml` file"
+            expected: "the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/deploy-staging.yml` file"
 
 
   # Step 3: Write the steps for the staging workflow
