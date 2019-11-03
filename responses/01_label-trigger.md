@@ -1,25 +1,29 @@
 # Welcome to the course!
 
-We will be working with Continuous Delivery. We will...
-- Create a workflow to deploy to staging based on a label
-- Create a workflow to deploy to production based on merging to master
-- Use AWS configuration
+We'll learn how to create a workflow that enables Continuous Delivery. You'll:
+- create a workflow to deploy to staging based on a label
+- create a workflow to deploy to production based on merging to master
 
-Before you start, you should...
+Before you start, you should be familiar with GitHub and Continuous Integration. If you aren't sure where to start, you may want to check out these two Learning Lab courses:
+
 - [Introduction to GitHub](https://lab.github.com/githubtraining/introduction-to-github)
 - [Continuous Integration with GitHub Actions](https://lab.github.com/githubtraining/set-up-continuous-integration-with-github-actions)
 
 ### What is Continuous Delivery?
 
-According to [continuousdelivery.com](https://continuousdelivery.com/),
+[Martin Fowler](https://martinfowler.com/bliki/ContinuousDelivery.html) defined Continuous Delivery very simply in a 2013 post as follows:
 
-> Continuous Delivery is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
+> Continuous Delivery is a software development discipline where you build software in such a way that the software can be released to production at any time.
 
 A lot of things go into delivering "continuously". These things can range from culture and behavior to specific automation. In this course, we're going to focus on deployment automation.
 
+### Kicking off deployments
+
+Every deployment is kicked off by some trigger. Engineers at many companies, like at GitHub, typically use a ChatOps command as a trigger. The trigger itself isn't incredibly important. In our use case, we'll use labels. When someone applies a "stage" label to a pull request, that'll be our indicator that we'd like to deploy our application to a staging environment.
+
 ## Step 1: Configure a trigger based on labels
 
-During the `on` step, we define what should cause this workflow to run. In this case, we want the workflow to run whenever a label is applied to the pull request.
+In a GitHub Actions workflow, the `on` step defines what causes the workflow to run. In this case, we want the workflow to run whenever a label is applied to the pull request.
 
 ### :keyboard: Activity: Configure the workflow trigger based on an a label being added
 
@@ -38,6 +42,5 @@ on:
 
 jobs:
   build:
-    if: contains(github.event.pull_request.labels.*.name, 'stage')
-
+    runs-on: ubuntu-latest
 ```

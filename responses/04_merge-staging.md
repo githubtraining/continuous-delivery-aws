@@ -9,4 +9,4 @@ It won't be "working" yet, because our next step is to work on the configuration
 ### :keyboard: Activity: Merge this staging workflow pull request
 
 1. Merge this pull request
-2. Delete the `staging-workflow` branch`
+2. Delete the `staging-workflow` branch

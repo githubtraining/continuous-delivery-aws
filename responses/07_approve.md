@@ -12,7 +12,9 @@ Whenever you're using a GitHub Action, it's important to read the documentation.
 
 This file is a bit trickier. The template `aws-config.yml` file that was documented with the action has a placeholder for this template, but doesn't specify what we should do.
 
-In our case, we created the `sam-template.yml` for you. It contains information that's specific about the application source code in this repository. When we tell AWS to deploy, it wonders "Deploy _what_?". This file communicates which files should be deployed, and how, within our S3 bucket on AWS.
+This file is specific to deploying a serverless application to AWS. Specifically, an AWS SAM template tells AWS how to set up the application's architecture. Read more about it in [_AWS SAM Template Concepts_](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html) in the AWS documentation.
+
+In our case, we created the `sam-template.yml` for you. It contains information that's specific about the application's endpoints and structure.
 
 ## Step 7: Approve the pull request
 

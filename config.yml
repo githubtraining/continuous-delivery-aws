@@ -44,36 +44,67 @@ steps:
    # event: User commits the proper trigger
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
-  event: pull_request
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/1'
   actions:
-    # We validate that trigger is correct
-  #- type: gate  
+  - type: getFileContents
+    action_id: fileContents
+    filename: '.github/workflows/deploy-staging.yml'
+    required: false
 
-  # Step 2: Choose the environment for AWS
+    # We validate that trigger is correct
+  - type: gate
+    every: true
+    gates:
+    - left: '%payload.pull_request.title%'
+      operator: ===
+      right: Create a staging workflow
+    - left: '/on:\s*\n\s*pull_request:\s*\n\s*types:\s*\[\s*labeled\s*\]\s*/gi'
+      operator: test
+      right: '%actions.fileContents%'
+    else:
+    - type: respond
+      with: 0Xe_unexpected.md
+      data:
+        expected: commit the file `.github/workflows/deploy-staging.yml` and a `[labeled]` trigger on the `staging-workflow` branch
+
+  # Step 2: Trigger a job on specific labels
 
     # We tell the user to write the proper environment in the workflow file
   - type: respond
-    with: 02_environment.md
+    with: 02_conditional.md
 
     # event: User commits proper environment in workflow
-- title: Choose the environment for AWS
-  description: Choose the Ubuntu environment for our app
-  event: pull_request
+- title: Trigger a job on specific labels
+  description: Use a conditional to trigger a job on a specific label
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/1'
   actions:
+    - type: getFileContents
+      action_id: fileContents
+      filename: '.github/workflows/deploy-staging.yml'
+      required: false
 
     # We validate
-  #- type: gate
+    - type: gate
+      left: /\s*if:\s*contains\s*\(\s*github\.event\.pull_request\.labels\.\*\.name,\s*'stage'\)/gi
+      operator: test
+      right: '%actions.fileContents%'
+      else:
+        - type: respond
+          with: 0Xe_unexpected.md
+          data:
+            expected: "the conditional `if: contains(github.event.pull_request.labels.*.name, 'stage')` in the `.github/workflows/deploy-staging.yml` file"
+
 
   # Step 3: Write the steps for the staging workflow
       # We tell the user to write the proper steps for the workflow
-  - type: respond
-    with: 03_workflow-steps.md
+    - type: respond
+      with: 03_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
-- title: Write the steps for the staging workflow
-  description: Write the steps for the staging deployment workflow
+- title: Deploy a Node.js app to AWS for the first time
+  description: Use the GitHub-created action to deploy to AWS
   event: pull_request
   link: '{{ repoUrl }}/pull/1'
   actions:
@@ -127,28 +158,12 @@ steps:
 
     # event: responding with a comment
 
-- title: Confirm AWS S3 configuration
-  description: Create an AWS account by the following specifications, and confirm here
-  event: issue_comment.created
+- title: Create an S3 bucket
+  description: Create an S3 bucket in AWS and tell the action where to find it
+  event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/2'
   actions:
     
-  # Step 6: Enter environment variables
-
-    # We ask user to enter their environment variables into this repository.
-
-  - type: respond
-    with: 06_env-variables.md
-
-    # event: Respond with a comment
-- title: Create and store environment variables
-  description: Create your AWS IAM secrets and enter them in this repository
-  event: issue_comment.created
-  link: '{{ repoUrl }}/pull/2'
-  actions:   
-
-  # Validate if possible
-
 # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
 
   # We explain what the purpose of these templates are, and ask the user to approve 
@@ -239,12 +254,12 @@ steps:
 
   # We tell the user to write the proper environment
   - type: respond
-    with: 10_environment.md
+    with: 10_deploy-prod.md
 
   # event: commit, user writes the environment
   
-- title: Choose the environment for AWS
-  description: Commit the proper environment for AWS to the workflow file
+- title: Complete the deployment to production workflow
+  description: Commit the steps to the production workflow that allow you to deploy on merge to master.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
@@ -252,7 +267,7 @@ steps:
   # We validate
   # - type: gate
 
-# Step 11: Write the steps for the production workflow
+# Step 11: Create the Docker image and push it to GPR
 
   # We tell the user to write the proper steps for the workflow
   - type: respond
@@ -260,8 +275,8 @@ steps:
 
   # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
   
-- title: Write the steps for the production workflow
-  description: Write the steps for the production deployment to the workflow file
+- title: Create the Docker image and push it to GPR
+  description: Add a step to the workflow for building and pushing a Docker image to GPR.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
@@ -291,12 +306,7 @@ steps:
   
   # check that its merged
   - type: gate
-    every: true
-    gates:
-    - left: '%payload.action%'
-      operator: ===
-      right: closed
-    - left: '%payload.pull_request.merged%'
+    left: '%payload.pull_request.merged%'
 
 # final response: congratulations
   - type: respond
