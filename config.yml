@@ -1,6 +1,6 @@
 # Course information
-title: Continuous Delivery with GitHub Actions
-tagline: Deploy to staging and production with GitHub Actions
+title: GitHub Actions: Continuous Delivery
+tagline: Use GitHub Actions to deploy a serverless application to the cloud
 description: Create two deployment workflows using AWS.
 tags:
   - GitHub Actions
@@ -9,7 +9,7 @@ tags:
   - Continuous Delivery
   - Deployment
 template:
-    name: continuous-delivery
+    name: github-actions-continuous-delivery
     repo: continuous-delivery-template
 
 # Before
