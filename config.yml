@@ -35,13 +35,15 @@ before:
   title: Create a staging workflow
   body: 01_label-trigger.md
   head: staging-workflow
+  data:
+    workflowUrl: '%payload.repository.html_url%/new/%payload.pull_request.head.ref%?filename=.github/CHANGETHIS/deploy-staging.yml'
 
       # protected branch
 - type: updateBranchProtection
   
 steps: 
 
-   # event: User commits the proper trigger
+   # Step 1: User commits the proper trigger
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
   event: pull_request.synchronize
