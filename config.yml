@@ -196,6 +196,11 @@ steps:
   - type: mergeBranch
     head: aws-configuration
     base: master
+    
+  # merge master into staging-test so staging-test has the appropriate updates
+  - type: mergeBranch
+    head: master
+    base: staging-test
 
   # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
   - type: createPullRequest
