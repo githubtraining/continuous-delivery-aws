@@ -11,6 +11,7 @@ All of this happens automatically once a pull request is merged!
 
 ### :keyboard: Activity: Write the steps for the production deployment workflow
 
+1. Edit the `deploy-prod.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/production-deployment-workflow/.github/workflows/deploy-prod.yml?) _(We recommend opening the quick link in another tab)_
 1. Add a job to your workflow as follows:
     ```yml
     Build-and-Push-Docker-Image:

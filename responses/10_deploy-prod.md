@@ -12,9 +12,10 @@ In our case, we can match our production environment to be exactly like our stag
 
 ### :keyboard: Commit the steps to the production workflow that allow you to deploy on merge to master
 
-Add a `build` and `deploy` job to the workflow in this PR. It should look like the file below when you are finished. 
+1. Edit the `deploy-prod.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/production-deployment-workflow/.github/workflows/deploy-prod.yml?) _(We recommend opening the quick link in another tab)_
+2. Add a `build` and `deploy` job to the workflow
 
-Note that not much has changed from our staging workflow, except for our trigger.
+It should look like the file below when you are finished. Note that not much has changed from our staging workflow, except for our trigger.
 
 ```yml
 name: Production deployment

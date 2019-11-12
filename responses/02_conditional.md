@@ -18,6 +18,11 @@ Let's put all this together to run our job only when a labeled named "stage" is 
 
 ### :keyboard: Activity: Choose the Ubuntu environment for our app
 
+1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+2. Edit the contents of the file to add a conditional
+
+Your results should look like this:
+
 ```yml
 name: Staging deployment
 

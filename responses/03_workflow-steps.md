@@ -29,7 +29,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
 1. Click **Add a new secret** again.
 1. Name the second secret **AWS_SECRET_KEY** and paste the value from the Secret access key generated on AWS.
 1. Click **Add secret**
-1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use a new action 
+2. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use a new action, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
     ```yml
     - name: Deploy to AWS
       uses: github/deploy-nodejs@master

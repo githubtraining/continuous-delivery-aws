@@ -41,7 +41,7 @@ before:
   
 steps: 
 
-   # event: User commits the proper trigger
+   # Step 1: User commits the proper trigger
 - title: Configure a trigger based on labels
   description: Configure the workflow trigger based on an a label being added
   event: pull_request.synchronize
