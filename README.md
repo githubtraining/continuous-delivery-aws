@@ -2,7 +2,7 @@
 
 <h1 align="center">Course: Continuous Delivery using GitHub Actions</h1>
 
-This repository powers the Learning Lab course [_Continuous Delivery using GitHub Actions_](https://lab.github.com/githubtraining/introduction-to-github). 
+This repository powers the Learning Lab course [_Continuous Delivery using GitHub Actions_](https://lab.github.com/githubtraining/github-actions:-continuous-delivery). 
 
 Every Learning Lab course is made up of:
 - a [course repository](https://github.com/githubtraining/continuous-delivery), and
