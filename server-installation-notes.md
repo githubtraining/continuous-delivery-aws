@@ -5,8 +5,6 @@
 
 This course makes use of [GitHub Actions](https://github.com/features/actions), a feature that is currently available for GitHub.com but not available on GHES.
 
-You may still make significant modifications to the course to work with a third-party code analysis tools.
-
 ### Course dependencies
 
 The following are dependencies of the course. The course may continue to work without these dependencies, but learners won't experience the course as designed.
