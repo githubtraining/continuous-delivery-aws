@@ -272,7 +272,9 @@ steps:
   # We validate
   # - type: gate
 
-# Step 11: Create the Docker image and push it to GPR
+
+# Step 11: Create the Docker image and push it to GitHub Packages
+
 
   # We tell the user to write the proper steps for the workflow
   - type: respond
@@ -280,8 +282,8 @@ steps:
 
   # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
   
-- title: Create the Docker image and push it to GPR
-  description: Add a step to the workflow for building and pushing a Docker image to GPR.
+- title: Create the Docker image and push it to GitHub Packages
+  description: Add a step to the workflow for building and pushing a Docker image to GitHub Packages.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
