@@ -1,6 +1,6 @@
 # Workflow steps
 
-We'll add a final section to our production workflow that packages up our application in a Docker container and publishes it to the GitHub Package Registry (GPR). This step is important for the traceability of your deployed artifacts.
+We'll add a final section to our production workflow that packages up our application in a Docker container and publishes it to GitHub Packages. This step is important for the traceability of your deployed artifacts.
 
 We'll only use one new action here created by a GitHubber, which allows us to push a container to GPR. 
 - `mattdavis0351/actions/docker-gpr`
