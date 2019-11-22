@@ -272,7 +272,9 @@ steps:
   # We validate
   # - type: gate
 
-# Step 11: Create the Docker image and push it to Packages
+
+# Step 11: Create the Docker image and push it to GitHub Packages
+
 
   # We tell the user to write the proper steps for the workflow
   - type: respond
