@@ -25,7 +25,7 @@ Every deployment is kicked off by some trigger. Engineers at many companies, lik
 
 In a GitHub Actions workflow, the `on` step defines what causes the workflow to run. In this case, we want the workflow to run whenever a label is applied to the pull request.
 
-### :keyboard: Activity: Configure the workflow trigger based on an a label being added
+### :keyboard: Activity: Configure the workflow trigger based on a label being added
 
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/CHANGETHIS/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
 2. Change the name of the directory `CHANGETHIS` to `workflows`, so the title of this file with the path is `.github/workflows/deploy-staging.yml`
