@@ -7,7 +7,7 @@ We'll only use one new action here created by a GitHubber, which allows us to pu
 
 All of this happens automatically once a pull request is merged!
 
-## Step 11: Write the steps for the production workflow
+## Step 10: Create the Docker image and push it to GitHub Packages
 
 ### :keyboard: Activity: Write the steps for the production deployment workflow
 

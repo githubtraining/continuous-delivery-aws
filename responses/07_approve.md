@@ -16,7 +16,7 @@ This file is specific to deploying a serverless application to AWS. Specifically
 
 In our case, we created the `sam-template.yml` for you. It contains information that's specific about the application's endpoints and structure.
 
-## Step 7: Approve the pull request
+## Step 6: Approve the pull request
 
 I've requested your approval on this pull request. Once you approve this, I will merge.
 

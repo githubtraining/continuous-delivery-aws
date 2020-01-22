@@ -8,7 +8,7 @@ Just like with the other workflow, we'll need to build our application and deplo
 
 In our case, we can match our production environment to be exactly like our staging environment. This minimizes opportunities for surprises once we deploy to production.
 
-## Step 10: Complete the deployment to production workflow
+## Step 9: Complete the deployment to production workflow
 
 ### :keyboard: Commit the steps to the production workflow that allow you to deploy on merge to master
 
