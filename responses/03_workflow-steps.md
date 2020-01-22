@@ -11,7 +11,7 @@ We won't be going into detail on the steps of this workflow, but it would be a g
 - [`actions/download-artifact`](https://github.com/actions/download-artifact)
 - [`github/deploy-nodejs`](https://github.com/github/deploy-nodejs)
 
-The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining/using-github-actions-for-ci) also teaches how to use most of these actions in details.
+The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining/github-actions:-continuous-integration) also teaches how to use most of these actions in details.
 
 ### :keyboard: Activity: Deploy a Node.js app to AWS for the first time
 
