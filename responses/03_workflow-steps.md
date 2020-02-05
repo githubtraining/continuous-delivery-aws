@@ -13,8 +13,8 @@ We won't be going into detail on the steps of this workflow, but it would be a g
 
 The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining/github-actions:-continuous-integration) also teaches how to use most of these actions in details.
 
-### :keyboard: Activity: Deploy a Node.js app to AWS for the first time
-
+### :keyboard: Activity: Set up the environment for your app
+{% if preferences.cloud == 'aws' %}
 1. In a new tab, [create an AWS account](https://portal.aws.amazon.com/billing/signup) if you don't already have one.
     > Note: You may need a credit card to create an AWS account. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to AWS. If you'd like to continue with the course without an AWS account, Learning Lab will still respond, but none of the deployments will work.
 1. **[Add a user](https://console.aws.amazon.com/iam/home?#/users$new?step=details)** in the IAM service with administrator permission.
@@ -83,3 +83,111 @@ jobs:
           AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
           AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
 ```
+{% else %}
+1. In a new tab, [create an Azure account](https://azure.microsoft.com/en-us/free/) if you don't already have one.
+    > Note: You may need a credit card to create an Azure account. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to Azure. If you'd like to continue with the course without an Azure account, Learning Lab will still respond, but none of the deployments will work.
+1. Create a [new subscription](https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription) in the Azure Portal. 
+    > Note: you subscription must be configured "Pay as you go" which will require you to enter billing information. This course will only use a few minutes from your free plan, but Azure requires the billing information. 
+1. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on your machine. 
+1. In your terminal, run:
+    ```shell
+    az login
+    ```
+1. Copy the value of the `id:` field to a safe place. We'll call this `AZURE_SUBSCRIPTION_ID`. Here's an example of what it looks like:
+    ```shell
+    [
+    {
+      "cloudName": "AzureCloud",
+      "id": "f****a09-****-4d1c-98**-f**********c", # <-- Copy this id field
+      "isDefault": true,
+      "name": "some-subscription-name",
+      "state": "Enabled",
+      "tenantId": "********-a**c-44**-**25-62*******61",
+      "user": {
+        "name": "mdavis******@*********.com",
+        "type": "user"
+        }
+      }
+    ]
+    ```
+1. In your terminal, run:
+    ```shell
+    az ad sp create-for-rbac --name "GitHub-Actions" --role contributor \
+                              --scopes /subscriptions/{subscription-id} \
+                              --sdk-auth
+                              
+    # Replace {subscription-id} with the same id stored in AZURE_SUBSCRIPTION_ID
+    ```   
+1. Copy the entire contents of the command's response, we'll call this `AZURE_CREDENTIALS`. Here's an example of what it looks like:
+    ```shell
+    {
+      "clientId": "<GUID>",
+      "clientSecret": "<GUID>",
+      "subscriptionId": "<GUID>",
+      "tenantId": "<GUID>",
+      (...)
+    } 
+    ```
+1. Back on GitHub, click on this repository's **[Secrets]({{ repoUrl }}/settings/secrets)** in the Settings tab.
+1. Click **Add a new secret**
+1. Name your new secret **AZURE_SUBSCRIPTION_ID** and paste the value from the `id:` field in the first command.
+1. Click **Add secret**.
+1. Click **Add a new secret** again.
+1. Name the second secret **AZURE_CREDENTIALS** and paste the entire contents from the second terminal command you entered.
+1. Click **Add secret**
+
+1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use a new action, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+    ```yml
+    - name: Deploy to AWS
+      uses: github/deploy-nodejs@master
+      env:
+        AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
+        AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
+    ```
+If you'd like to copy the full workflow file, it should look like this:
+
+```yml
+name: Staging deployment
+
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    if: contains(github.event.pull_request.labels.*.name, 'stage')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: npm install and build webpack
+        run: |
+          npm install
+          npm run build
+      - uses: actions/upload-artifact@master
+        with:
+          name: webpack artifacts
+          path: public/
+
+  deploy:
+    name: Deploy Node.js app to AWS
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Download built artifact
+        uses: actions/download-artifact@master
+        with:
+          name: webpack artifacts
+          path: public
+
+      - name: Deploy to AWS
+        uses: github/deploy-nodejs@master
+        env:
+          AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
+          AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
+```
+{% endif %}

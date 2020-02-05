@@ -11,6 +11,16 @@ tags:
 template:
     name: github-actions-continuous-delivery
     repo: continuous-delivery-template
+preferences:
+  - type: radio
+    name: cloud
+    label: Deployment cloud
+    description: You can choose a cloud (AWS or Azure) for your deployments in this course.
+    options:
+      - label: Amazon Web Services (AWS)
+        value: aws
+      - label: Microsoft Azure
+        value: azure
 
 # Before
 before:
@@ -103,8 +113,8 @@ steps:
       with: 03_workflow-steps.md
 
     # event: commit, user writes the steps for the workflow, using recommended existing GitHub steps
-- title: Deploy a Node.js app to AWS for the first time
-  description: Use the GitHub-created action to deploy to AWS
+- title: Set up the environment for your app
+  description: Use the GitHub-created action to deploy your app
   event: pull_request
   link: '{{ repoUrl }}/pull/1'
   actions:
