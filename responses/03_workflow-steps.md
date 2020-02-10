@@ -40,7 +40,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
 If you'd like to copy the full workflow file, it should look like this:
 
 ```yml
-name: Staging deployment
+name: Set up environment and stage
 
 on: 
   pull_request:
@@ -135,7 +135,6 @@ jobs:
 1. Click **Add a new secret** again.
 1. Name the second secret **AZURE_CREDENTIALS** and paste the entire contents from the second terminal command you entered.
 1. Click **Add secret**
-
 1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use a new action, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
     ```yml
     - name: Deploy to AWS
@@ -147,13 +146,23 @@ jobs:
 If you'd like to copy the full workflow file, it should look like this:
 
 ```yml
-name: Staging deployment
+name: Set up environment and stage
 
 on: 
   pull_request:
     types: [labeled]
 
 jobs:
+  spinup:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'spin up environment')
+
+  destroy:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'destroy environment')
+
   build:
     if: contains(github.event.pull_request.labels.*.name, 'stage')
 
@@ -170,13 +179,13 @@ jobs:
           name: webpack artifacts
           path: public/
 
-  deploy:
-    name: Deploy Node.js app to AWS
-    needs: build
+  Build-Docker-Image:
     runs-on: ubuntu-latest
-
+    needs: build
+    name: Build image and store in GitHub Packages
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
       - name: Download built artifact
         uses: actions/download-artifact@master
@@ -184,10 +193,36 @@ jobs:
           name: webpack artifacts
           path: public
 
-      - name: Deploy to AWS
-        uses: github/deploy-nodejs@master
-        env:
-          AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
-          AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
+      - name: create image and store in Packages
+        uses: mattdavis0351/actions/docker-gpr@1.3.0
+        with:
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          image-name: ${{env.DOCKER_IMAGE_NAME}}
+
+  Deploy-to-Azure:
+    runs-on: ubuntu-latest
+    needs: Build-Docker-Image
+    name: Deploy app container to Azure
+    steps:
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{env.IMAGE_REGISTRY_URL}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy web app container
+        uses: azure/webapps-container-deploy@v1
+        with:
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+
+      - name: Azure logout
+        run: |
+          az logout
 ```
 {% endif %}
