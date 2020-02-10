@@ -40,7 +40,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
 If you'd like to copy the full workflow file, it should look like this:
 
 ```yml
-name: Set up environment and stage
+name: Stage the app
 
 on: 
   pull_request:
@@ -135,34 +135,29 @@ jobs:
 1. Click **Add a new secret** again.
 1. Name the second secret **AZURE_CREDENTIALS** and paste the entire contents from the second terminal command you entered.
 1. Click **Add secret**
-1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use a new action, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
-    ```yml
-    - name: Deploy to AWS
-      uses: github/deploy-nodejs@master
-      env:
-        AWS_ACCESS_KEY: {% raw %}${{ secrets.AWS_ACCESS_KEY }}{% endraw %}
-        AWS_SECRET_KEY: {% raw %}${{ secrets.AWS_SECRET_KEY }}{% endraw %}
-    ```
+1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use some new actions, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+
 If you'd like to copy the full workflow file, it should look like this:
 
 ```yml
-name: Set up environment and stage
+name: Stage the app
 
 on: 
   pull_request:
     types: [labeled]
 
+  env:
+    DOCKER_IMAGE_NAME: {{user.login}}-tic-tac-toe
+    IMAGE_REGISTRY_URL: docker.pkg.github.com
+    #################################################
+    ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+    #################################################
+    #################################################
+    ### REPLACE USERNAME WITH GH USERNAME         ###
+    AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+    #################################################
+
 jobs:
-  spinup:
-    runs-on: ubuntu-latest
-
-    if: contains(github.event.pull_request.labels.*.name, 'spin up environment')
-
-  destroy:
-    runs-on: ubuntu-latest
-
-    if: contains(github.event.pull_request.labels.*.name, 'destroy environment')
-
   build:
     if: contains(github.event.pull_request.labels.*.name, 'stage')
 

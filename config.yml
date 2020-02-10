@@ -24,6 +24,7 @@ preferences:
 
 # Repo artifacts
 # 1. (PR) Create a staging workflow
+# 2. (PR) Configure cloud provider
 
 # Before
 before:
@@ -172,7 +173,7 @@ steps:
     
     # We open a PR, we ask user to confirm AWS account configuration by responding with :+1:
   - type: createPullRequest
-    title: Configure AWS
+    title: Configure cloud provider
     body: 05_confirm-aws.md
     head: aws-configuration
     action_id: awsPR
@@ -200,7 +201,7 @@ steps:
 
   # we formally request their approval
   - type: requestReviewFromRegistrant
-    pullRequest: Configure AWS
+    pullRequest: Configure cloud provider
 
   # event: approval
 

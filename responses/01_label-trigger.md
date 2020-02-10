@@ -27,6 +27,8 @@ In our use case, we'll use labels as triggers for multiple tasks:
 - When someone applies a "spin up environment" label to a pull request, that'll tell GitHub Actions that we'd like to set up our resources on an Azure environment.
 - When someone applies a "stage" label to a pull request, that'll be our indicator that we'd like to deploy our application to a staging environment.
 - When someone applies a "destroy environment" label to a pull request, we'll tear down any resources that are running on our Azure account.
+
+For now, we'll focus on staging. We'll spin up and destroy our environment in a later step.
 {% else %}
 ### Kicking off deployments
 
@@ -48,7 +50,7 @@ In a GitHub Actions workflow, the `on` step defines what causes the workflow to 
 Your result should look like this:
 
 ```yml
-name: Set up environment and stage
+name: Stage the app
 
 on: 
   pull_request:

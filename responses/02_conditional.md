@@ -14,25 +14,18 @@ We'd like to run our workflow on a specific label name, suppose that it's **peac
 
 ## Step 2: Trigger a job on specific labels
 
-{% if preferences.cloud == 'aws' %}
 Let's put all this together to run our job only when a labeled named "stage" is applied to the pull request.
-{% else %}
-Let's pull all this together to run a specific job based on the following conditions:
-- when a "spin up environment" label is applied, set up the cloud resources
-- when a "stage" label is applied, run the build and stage jobs
-- when a "destroy environment" label is applied, remove all our cloud resources
-{% endif %}
 
 ### :keyboard: Activity: Add a conditional to select from labels
 
 {% if preferences.cloud == 'aws' %}
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
-2. Edit the contents of the file to add a conditional
+2. Edit the contents of the file to add a conditional that filters the `build` job using a label called "stage".
 
 Your results should look like this:
 
 ```yml
-name: Stand up environment and stage
+name: Stage the app
 
 on: 
   pull_request:
@@ -46,35 +39,46 @@ jobs:
 ```
 {% else %}
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
-2. Edit the contents of the file to add three jobs in total: `spinup`, `destroy`, and `build`.
-3. For each job, add a conditional that filters by the label name:
-    - "spin up environment" for the `spinup` job
-    - "destroy environment" for the `destroy` job
-    - "stage" for the `build` job
+1. Edit the contents of the file to add a block for environment variables before your jobs, as follows.
+    ```yaml
+    env:
+      DOCKER_IMAGE_NAME: {{user.login}}-tic-tac-toe
+      IMAGE_REGISTRY_URL: docker.pkg.github.com
+      #################################################
+      ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+      #################################################
+      #################################################
+      ### REPLACE USERNAME WITH GH USERNAME         ###
+      AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+      #################################################
+    ```
+1. Edit the contents of the file to add a conditional that filters the `build` job using a label called "stage".
 
 Your results should look like this:
 
 ```yml
-name: Set up environment and stage
+name: Stage the app
 
 on: 
   pull_request:
     types: [labeled]
 
+  env:
+    DOCKER_IMAGE_NAME: {{user.login}}-tic-tac-toe
+    IMAGE_REGISTRY_URL: docker.pkg.github.com
+    #################################################
+    ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+    #################################################
+    #################################################
+    ### REPLACE USERNAME WITH GH USERNAME         ###
+    AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+    #################################################
+
 jobs:
-  spinup:
-    runs-on: ubuntu-latest
-
-    if: contains(github.event.pull_request.labels.*.name, 'spin up environment')
-
-  destroy:
-    runs-on: ubuntu-latest
-
-    if: contains(github.event.pull_request.labels.*.name, 'destroy environment')
-    
   build:
     runs-on: ubuntu-latest
 
     if: contains(github.event.pull_request.labels.*.name, 'stage')
 ```
+
 {% endif %}
