@@ -17,9 +17,23 @@ Before you start, you should be familiar with GitHub and Continuous Integration.
 
 A lot of things go into delivering "continuously". These things can range from culture and behavior to specific automation. In this course, we're going to focus on deployment automation.
 
+
+{% if preferences.cloud == 'azure' %}
+### Setting up environments and kicking off deployments
+
+Automation works at its best when a set of triggers work harmoniously to set up and deploy to target environments. Engineers at many companies, like at GitHub, typically use a ChatOps command as a trigger. The trigger itself isn't incredibly important.
+
+In our use case, we'll use labels in multiple ways:
+- When someone applies a "spin up environment" label to a pull request, that'll tell GitHub Actions that we'd like to spin up our environment on Azure.
+- When someone applies a "stage" label to a pull request, that'll be our indicator that we'd like to deploy our application to a staging environment.
+- When someone applies a "destroy environment" label to a pull request, we'll tear down any resources that are running on our Azure account.
+{% else %}
 ### Kicking off deployments
 
-Every deployment is kicked off by some trigger. Engineers at many companies, like at GitHub, typically use a ChatOps command as a trigger. The trigger itself isn't incredibly important. In our use case, we'll use labels. When someone applies a "stage" label to a pull request, that'll be our indicator that we'd like to deploy our application to a staging environment.
+Every deployment is kicked off by some trigger. Engineers at many companies, like at GitHub, typically use a ChatOps command as a trigger. The trigger itself isn't incredibly important. 
+
+In our use case, we'll use labels. When someone applies a "stage" label to a pull request, that'll be our indicator that we'd like to deploy our application to a staging environment.
+{% endif %}
 
 ## Step 1: Configure a trigger based on labels
 
@@ -29,12 +43,12 @@ In a GitHub Actions workflow, the `on` step defines what causes the workflow to 
 
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/CHANGETHIS/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
 2. Change the name of the directory `CHANGETHIS` to `workflows`, so the title of this file with the path is `.github/workflows/deploy-staging.yml`
-3. Edit the contents of this file to trigger on a label
+3. Edit the contents of this file to trigger a job called `build` on a label
 
 Your result should look like this:
 
 ```yml
-name: Staging deployment
+name: Stand up environment and stage
 
 on: 
   pull_request:

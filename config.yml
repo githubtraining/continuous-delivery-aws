@@ -22,6 +22,9 @@ preferences:
       - label: Microsoft Azure
         value: azure
 
+# Repo artifacts
+# 1. (PR) Create a staging workflow
+
 # Before
 before:
   # Repository must have a master branch with the working code, and 4 other branches:
@@ -32,9 +35,23 @@ before:
 
   # we create a staging label that will be used later to test
 
+- type: gate
+  left: '%preferences.cloud%'
+  operator: ===
+  right: azure
+  else:
+  - type: createLabel
+    name: stage
+    color: f87000
 - type: createLabel
   name: stage
   color: f87000
+- type: createLabel
+  name: spin up environment
+  color: 00f85f
+- type: createLabel
+  name: destroy environment
+  color: c4c4c4
 
 # PART 1: STAGING WORKFLOW 
 

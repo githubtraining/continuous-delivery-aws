@@ -14,10 +14,18 @@ We'd like to run our workflow on a specific label called **stage**, so we'll ach
 
 ## Step 2: Trigger a job on specific labels
 
+{% if preferences.cloud == 'aws' %}
 Let's put all this together to run our job only when a labeled named "stage" is applied to the pull request.
+{% else %}
+Let's pull all this together to run a specific job based on the following conditions:
+- when a "spin up environment" label is applied, set up the cloud resources
+- when a "stage" label is applied, run the build and stage jobs
+- when a "destroy environment" label is applied, remove all our cloud resources
+{% endif %}
 
-### :keyboard: Activity: Choose the Ubuntu environment for our app
+### :keyboard: Activity: Add a conditional to select from labels
 
+{% if preferences.cloud == 'aws' %}
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
 2. Edit the contents of the file to add a conditional
 
@@ -36,3 +44,37 @@ jobs:
 
     if: contains(github.event.pull_request.labels.*.name, 'stage')
 ```
+{% else %}
+1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+2. Edit the contents of the file to add three jobs in total: `spinup`, `destroy`, and `build`.
+3. For each job, add a conditional that filters by the label name:
+    - "spin up environment" for the `spinup` job
+    - "destroy environment" for the `destroy` job
+    - "stage" for the `build` job
+
+Your results should look like this:
+
+```yml
+name: Staging deployment
+
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  spinup:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'spin up environment')
+
+  destroy:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'destroy environment')
+    
+  build:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'stage')
+```
+{% endif %}
