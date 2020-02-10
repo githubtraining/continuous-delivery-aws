@@ -172,11 +172,29 @@ steps:
   # Step 5: Confirm AWS configuration
     
     # We open a PR, we ask user to confirm AWS account configuration by responding with :+1:
-  - type: createPullRequest
-    title: Configure cloud provider
-    body: 05_confirm-aws.md
-    head: aws-configuration
-    action_id: awsPR
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: aws
+    else:
+    - type: createPullRequest
+      title: Configure cloud provider
+      body: 05_configure-azure.md
+      head: azure-configuration
+      action_id: azurePR
+
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: azure
+    else:
+    - type: createPullRequest
+      title: Configure cloud provider
+      body: 05_confirm-aws.md
+      head: aws-configuration
+      action_id: awsPR
 
     # we point user to new PR
   - type: respond
@@ -186,8 +204,8 @@ steps:
 
     # event: responding with a comment
 
-- title: Create an S3 bucket
-  description: Create an S3 bucket in AWS and tell the action where to find it
+- title: Configure the app's resources
+  description: Use your workflow file to configure your cloud resources
   event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/2'
   actions:

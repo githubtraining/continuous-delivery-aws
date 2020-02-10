@@ -8,7 +8,7 @@ Amazon S3 Buckets are a very flexible type of data storage -- they can be config
 
 ## Step 5: Confirm AWS S3 configuration
 
-### :keyboard: Activity: Create an S3 bucket
+### :keyboard: Activity: Use your workflow file to configure your cloud resources
 
 1. Navigate to the [Amazon S3](https://s3.console.aws.amazon.com/s3/home) service and click on **Create bucket**.
     - See [_Create a Bucket_](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) on AWS documentation for the most detailed instructions.
