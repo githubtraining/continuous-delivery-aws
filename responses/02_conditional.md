@@ -63,16 +63,16 @@ on:
   pull_request:
     types: [labeled]
 
-  env:
-    DOCKER_IMAGE_NAME: {{user.login}}-tic-tac-toe
-    IMAGE_REGISTRY_URL: docker.pkg.github.com
-    #################################################
-    ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
-    #################################################
-    #################################################
-    ### REPLACE USERNAME WITH GH USERNAME         ###
-    AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
-    #################################################
+env:
+  DOCKER_IMAGE_NAME: {{user.login}}-tic-tac-toe
+  IMAGE_REGISTRY_URL: docker.pkg.github.com
+  #################################################
+  ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+  #################################################
+  #################################################
+  ### REPLACE USERNAME WITH GH USERNAME         ###
+  AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+  #################################################
 
 jobs:
   build:
