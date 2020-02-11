@@ -182,7 +182,7 @@ steps:
       title: Configure cloud provider
       body: 05_configure-azure.md
       head: azure-configuration
-      action_id: azurePR
+      action_id: nextPR
 
   - type: gate
     required: false
@@ -194,13 +194,13 @@ steps:
       title: Configure cloud provider
       body: 05_confirm-aws.md
       head: aws-configuration
-      action_id: awsPR
+      action_id: nextPR
 
     # we point user to new PR
   - type: respond
     with: 0X_next-steps.md
     data:
-      url: '%actions.awsPR.data.html_url%'
+      url: '%actions.nextPR.data.html_url%'
 
     # event: responding with a comment
 
