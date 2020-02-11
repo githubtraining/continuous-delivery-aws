@@ -239,10 +239,26 @@ steps:
       with: 07_approve-pr.md
     
   # we merge
-  - type: mergeBranch
-    head: aws-configuration
-    base: master
-    
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: azure
+    else:
+    - type: mergeBranch
+      head: aws-configuration
+      base: master
+
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: aws
+    else:
+    - type: mergeBranch
+      head: azure-configuration
+      base: master
+
   # merge master into staging-test so staging-test has the appropriate updates
   - type: mergeBranch
     head: master
