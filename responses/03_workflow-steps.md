@@ -191,8 +191,8 @@ jobs:
       - name: create image and store in Packages
         uses: mattdavis0351/actions/docker-gpr@1.3.0
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
-          image-name: ${{env.DOCKER_IMAGE_NAME}}
+          repo-token: {% raw %}${{secrets.GITHUB_TOKEN}}{% endraw %}
+          image-name: {% raw %}${{env.DOCKER_IMAGE_NAME}}{% endraw %}
 
   Deploy-to-Azure:
     runs-on: ubuntu-latest
@@ -202,19 +202,19 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: {% raw %}${{ secrets.AZURE_CREDENTIALS }}{% endraw %}
 
       - uses: azure/docker-login@v1
         with:
-          login-server: ${{env.IMAGE_REGISTRY_URL}}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          login-server: {% raw %}${{env.IMAGE_REGISTRY_URL}}{% endraw %}
+          username: {% raw %}${{ github.actor }}{% endraw %}
+          password: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Deploy web app container
         uses: azure/webapps-container-deploy@v1
         with:
-          app-name: ${{env.AZURE_WEBAPP_NAME}}
-          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+          app-name: {% raw %}${{env.AZURE_WEBAPP_NAME}}{% endraw %}
+          images: {% raw %}${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}{% endraw %}
 
       - name: Azure logout
         run: |
