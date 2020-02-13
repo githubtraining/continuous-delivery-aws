@@ -52,3 +52,5 @@ I've requested your approval on this pull request. Once you approve this, I will
 ### :keyboard: Activity: Approve pull request adding the necessary configuration files
 
 1. Approve this pull request
+
+I'll respond when I receive an approval on this pull request.
