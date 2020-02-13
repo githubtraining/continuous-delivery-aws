@@ -224,7 +224,7 @@ steps:
   # event: approval
 
 - title: Approve pull request
-  description: Approve pull request adding the aws-config.yml and sam-template.yml
+  description: Approve pull request adding the necessary configuration files
   event: pull_request_review
   link: '{{ repoUrl }}/pull/2'
   actions:   
