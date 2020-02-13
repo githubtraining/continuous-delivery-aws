@@ -25,6 +25,7 @@ preferences:
 # Repo artifacts
 # 1. (PR) Create a staging workflow
 # 2. (PR) Configure cloud provider
+# 3. (PR) Test the GitHub Actions workflows
 
 # Before
 before:
@@ -266,7 +267,7 @@ steps:
 
   # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
   - type: createPullRequest
-    title: Test the staging action
+    title: Test the GitHub Actions workflows
     body: 08_test.md
     head: staging-test
     action_id: testPR
@@ -279,11 +280,11 @@ steps:
 
 # PART 3: TEST STAGING WORKFLOW 
 
-# Step 8: Test the staging action
+# Step 8: Test the GitHub Actions workflows
 
   # event: label added, and deployment successful
 
-- title: Test the staging action
+- title: Test the GitHub Actions workflows
   description: Test the new action to deploy labeled pull requests to staging
   event: pull_request.labeled
   link: '{{ repoUrl }}/pull/3'
