@@ -22,7 +22,7 @@ In our case, we created the `sam-template.yml` for you. It contains information 
 
 To deploy successfully to our Azure environment, we've created a new workflow with two jobs:
 1. **Set up Azure resources** will run if the pull request contains a label with the name "spin up environment". 
-1. ((Destroy Azure resources)) will run if the pull request contains a label with the name "destroy environment".
+1. **Destroy Azure resources** will run if the pull request contains a label with the name "destroy environment".
 
 In addition to each job, there's a few global environment variables:
 - `AZURE_RESOURCE_GROUP`, `AZURE_APP_PLAN`, and `AZURE_WEBAPP_NAME` are names for our resource group, app service plan, and web app, respectively, which we'll reference over multiple steps and workflows
