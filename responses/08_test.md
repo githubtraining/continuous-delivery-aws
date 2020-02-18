@@ -1,6 +1,6 @@
 # Testing the workflow
 
-Now that the proper configuration and workflow files are present, let's test this action out!
+Now that the proper configuration and workflow files are present, let's test our actions!
 
 ## Step 7: Test the GitHub Actions workflows
 
