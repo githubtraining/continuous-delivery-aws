@@ -17,6 +17,14 @@ This file is specific to deploying a serverless application to AWS. Specifically
 
 In our case, we created the `sam-template.yml` for you. It contains information that's specific about the application's endpoints and structure.
 
+## Step 6: Approve the pull request
+
+I've requested your approval on this pull request. Once you approve this, I will merge.
+
+### :keyboard: Activity: Approve pull request adding the necessary configuration files
+
+1. Approve this pull request
+
 {% else %}
 # Configuring your Azure environment
 
@@ -43,14 +51,15 @@ The second job destroys Azure resources so that you do not use your free minutes
 1. Logs into your Azure account with the [`azure/login`](https://github.com/Azure/login) action. The `AZURE_CREDENTIALS` secret you created earlier is used for authentication.
 1. Deletes the resource group we created earlier using [`az group delete`](https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#az-group-delete) on the Azure CLI.
 
-{% endif %}
-
 ## Step 6: Approve the pull request
 
 I've requested your approval on this pull request. Once you approve this, I will merge.
 
 ### :keyboard: Activity: Approve pull request adding the necessary configuration files
 
-1. Approve this pull request
+1. Apply the "spin up environment" label to this pull request
+1. Wait for the GitHub Actions workflow to run and spin up your Azure environment. You can follow along in the Actions tab or in the pull request merge box.
+1. Once it workflow succeeds, approve this pull request
+{% endif %}
 
 I'll respond when I receive an approval on this pull request.
