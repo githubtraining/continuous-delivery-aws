@@ -393,7 +393,8 @@ steps:
   description: Destroy any running resources so you don't incur charges.
   event: issues.closed
   link: '{{ repoUrl }}/issues/4'
-
+  actions:
+  
 # final response: congratulations
   - type: respond
     with: 12_congratulations.md
