@@ -12,12 +12,9 @@ Throughout the course you've spun up resources that, if left unattended, could i
 
 {% if preferences.cloud == 'azure' %}
 
-1. Apply the **destroy environment** label to this issue.
-1. Wait for the GitHub Actions workflow to complete.
-1. You can confirm your environment has been destroyed by trying to visit your URL.
-1. Close this issue.
+1. Apply the **destroy environment** label to this pull request.
 {% else %}
 TODO: include instructions for tearing down AWS environment.
 {% endif %}
 
-I'll respond when you close this issue.
+I'll respond when you apply a label to this pull request. 
