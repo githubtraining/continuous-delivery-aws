@@ -26,6 +26,7 @@ preferences:
 # 1. (PR) Create a staging workflow
 # 2. (PR) Configure cloud provider
 # 3. (PR) Test the GitHub Actions workflows
+# 4. (Issue) Clean up the environment
 
 # Before
 before:
@@ -377,6 +378,21 @@ steps:
   # check that its merged
   - type: gate
     left: '%payload.pull_request.merged%'
+  
+  - type: createIssue
+    title: Clean up the environment
+    body: 12_clean-up.md
+    action_id: cleanUpIssue
+
+  - type: respond
+    with: 0X_next-steps.md
+    data:
+      url: '%actions.cleanUpIssue.data.html_url%'
+
+- title: Clean up your environment
+  description: Destroy any running resources so you don't incur charges.
+  event: issues.closed
+  link: '{{ repoUrl }}/issues/4'
 
 # final response: congratulations
   - type: respond
