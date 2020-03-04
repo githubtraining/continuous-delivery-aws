@@ -256,6 +256,23 @@ steps:
     - type: mergeBranch
       head: aws-configuration
       base: master
+    # merge master into staging-test so staging-test has the appropriate updates
+    - type: mergeBranch
+      head: master
+      base: staging-test
+
+    # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
+    - type: createPullRequest
+      title: Test the GitHub Actions workflows
+      body: 08_test.md
+      head: staging-test
+      action_id: testPR
+
+    # we point user to next pull request
+    - type: respond
+      with: 0X_next-steps.md
+      data:
+        url: '%actions.testPR.data.html_url%'
 
   - type: gate
     required: false
@@ -276,23 +293,23 @@ steps:
       head: azure-configuration
       base: master
 
-  # merge master into staging-test so staging-test has the appropriate updates
-  - type: mergeBranch
-    head: master
-    base: staging-test
+    # merge master into staging-test so staging-test has the appropriate updates
+    - type: mergeBranch
+      head: master
+      base: staging-test
 
-  # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
-  - type: createPullRequest
-    title: Test the GitHub Actions workflows
-    body: 08_test.md
-    head: staging-test
-    action_id: testPR
+    # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
+    - type: createPullRequest
+      title: Test the GitHub Actions workflows
+      body: 08_test.md
+      head: staging-test
+      action_id: testPR
 
-  # we point user to next pull request
-  - type: respond
-    with: 0X_next-steps.md
-    data:
-      url: '%actions.testPR.data.html_url%'
+    # we point user to next pull request
+    - type: respond
+      with: 0X_next-steps.md
+      data:
+        url: '%actions.testPR.data.html_url%'
 
 # PART 3: TEST STAGING WORKFLOW 
 
