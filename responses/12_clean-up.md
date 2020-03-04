@@ -14,7 +14,8 @@ Throughout the course you've spun up resources that, if left unattended, could i
 
 1. Apply the **destroy environment** label to this pull request.
 {% else %}
-TODO: include instructions for tearing down AWS environment.
+1. Navigate to the [Amazon S3](https://s3.console.aws.amazon.com/s3/home) service and delete your bucket.
+1. Apply the **destroy environment** label to this pull request to let me know you're finished.
 {% endif %}
 
 I'll respond when you apply a label to this pull request. 
