@@ -22,15 +22,15 @@ And when you're done you'll be able to:
 
 
 ## What you'll build
-In this course, we'll be walking through a CD deployment using GitHub Actions, following steps such as adding conditional triggers:
+In this course, we'll be walking through a CD deployment using GitHub Actions, and creating a Tic Tac Toe game!
 
 ![deployed app](https://user-images.githubusercontent.com/16547949/75822607-4003d480-5d6e-11ea-99e5-fc0cb5ca8054.gif)
-![cd](https://user-images.githubusercontent.com/57373296/75816734-bea74480-5d63-11ea-8f3c-d4b93680d1bf.gif)
 
 ## Prerequisites
 Before you start, you should be familiar with GitHub and Continuous Integration. We recommend taking the following two Learning Labs prior to this course:
 
 - [Introduction to GitHub](https://lab.github.com/githubtraining/introduction-to-github)
+- [Hello GitHub Actions!](https://lab.github.com/github/hello-github-actions!)
 - [Continuous Integration with GitHub Actions](https://lab.github.com/githubtraining/set-up-continuous-integration-with-github-actions)
 
 ## Projects used
@@ -41,4 +41,4 @@ This course makes use of the following technologies:
 
 ## Audience
 
-Developers, students, teams
+Developers, DevOps Engineers, students, teams
