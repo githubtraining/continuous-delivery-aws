@@ -218,16 +218,29 @@ steps:
         with: 0Xe_unexpected.md
         data:
           expected: commit the file `.github/workflows/spinup-destroy.yml`
+    # we formally request their approval
+    - type: requestReviewFromRegistrant
+      pullRequest: Configure cloud provider
+    
+    # We explain what the purpose of these templates are, and ask the user to approve 
+    - type: respond
+      with: 07_approve.md
+
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: azure
+    else: 
+    # we formally request their approval
+    - type: requestReviewFromRegistrant
+      pullRequest: Configure cloud provider
+    
+    # We explain what the purpose of these templates are, and ask the user to approve 
+    - type: respond
+      with: 07_approve.md
+
 # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
-
-  # We explain what the purpose of these templates are, and ask the user to approve 
-  
-  - type: respond
-    with: 07_approve.md
-
-  # we formally request their approval
-  - type: requestReviewFromRegistrant
-    pullRequest: Configure cloud provider
 
   # event: approval
 
