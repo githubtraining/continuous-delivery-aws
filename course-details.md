@@ -26,7 +26,7 @@ In this course, we'll be walking through a CD deployment using GitHub Actions, a
 ![deployed app](https://user-images.githubusercontent.com/16547949/75822607-4003d480-5d6e-11ea-99e5-fc0cb5ca8054.gif)
 
 ## Prerequisites
-Before you start, you should be familiar with GitHub and Continuous Integration. We recommend taking the following two Learning Labs prior to this course:
+Before you start, you should be familiar with GitHub and Continuous Integration. We recommend taking the following three Learning Labs prior to this course:
 
 - [Introduction to GitHub](https://lab.github.com/githubtraining/introduction-to-github)
 - [Hello GitHub Actions!](https://lab.github.com/github/hello-github-actions!)
