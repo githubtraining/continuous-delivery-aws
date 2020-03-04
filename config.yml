@@ -201,7 +201,23 @@ steps:
   event: pull_request.synchronize
   link: '{{ repoUrl }}/pull/2'
   actions:
-    
+  - type: gate
+    required: false
+    left: '%preferences.cloud%'
+    operator: ===
+    right: aws
+    else: 
+    - type: getFileContents
+      action_id: fileContents
+      filename: '.github/workflows/spinup-destroy.yml'
+      required: false
+    - type: gate
+      left: '%actions.fileContents%'
+      else: 
+      - type: respond
+        with: 0Xe_unexpected.md
+        data:
+          expected: commit the file `.github/workflows/spinup-destroy.yml`
 # Step 7: Approve pull request adding aws-config.yml and sam-template.yml
 
   # We explain what the purpose of these templates are, and ask the user to approve 
