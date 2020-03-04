@@ -36,15 +36,6 @@ before:
 
   # we create a staging label that will be used later to test
 
-- type: gate
-  required: false
-  left: '%preferences.cloud%'
-  operator: ===
-  right: azure
-  else:
-  - type: createLabel
-    name: stage
-    color: f87000
 - type: createLabel
   name: stage
   color: f87000
