@@ -247,6 +247,15 @@ steps:
     operator: ===
     right: aws
     else:
+    - type: gate
+      left: '%payload.pull_request.labels%'
+      operator: includes
+      right: "spin up environment"
+      else:
+        - type: respond
+          with: 0Xe_unexpected.md
+          data:
+            expected: "apply the 'spin up environment' label"
     - type: mergeBranch
       head: azure-configuration
       base: master
