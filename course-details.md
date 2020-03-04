@@ -1,8 +1,8 @@
 This course is about continuous delivery, or CD, with GitHub Actions. CD is a crucial part of modern software development, and it can have a monumental impact on development projects. 
 
-Continuous Delivery is the practice of delivering software faster and with higher quality. Doing so successfully requires many different practices, behaviors, and technologies. 
+Continuous Delivery is the practice of delivering software faster and with higher quality. Doing so successfully requires many different practices, behaviors, and technologies. GitHub Actions makes implementing CD easier, faster, and more reliable.
 
-In this course, we focus on using workflows to deploy pull requests automatically to a staging environment, and to deploy all merged commits to production. We will create two workflows to deploy our app to an AWS S3 bucket automatically.
+In this course, we focus on using workflows in GitHub Actions to deploy pull requests automatically to a staging environment, and to deploy all merged commits to production.
 
 
 ## What you'll learn
@@ -16,9 +16,8 @@ We'll answer common questions like:
 
 And when you're done you'll be able to:
 - Use GitHub Actions and create workflow files
-- Configure AWS S3 for deployment
 - Use secrets to store tokens
-- Deploy to staging and production
+- Deploy to staging and production using GitHub Actions to implement CD
 
 
 ## What you'll build
