@@ -1,6 +1,5 @@
 # Course information
 title: "GitHub Actions: Continuous Delivery"
-tagline: Use GitHub Actions to deploy a serverless application to the cloud
 description: Create two deployment workflows using AWS.
 tags:
   - GitHub Actions
