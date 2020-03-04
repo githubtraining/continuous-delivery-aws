@@ -38,6 +38,7 @@ before:
   # we create a staging label that will be used later to test
 
 - type: gate
+  required: false
   left: '%preferences.cloud%'
   operator: ===
   right: azure
