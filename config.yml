@@ -212,9 +212,7 @@ steps:
       filename: '.github/workflows/spinup-destroy.yml'
       required: false
     - type: gate
-      every: true
-      gates:
-      - left: '%actions.fileContents%'
+      left: '%actions.fileContents%'
       # - left: '/AZURE_WEBAPP_NAME:\s*%user.login%/gi'
       #   operator: test
       #   right: '%actions.fileContents%'
