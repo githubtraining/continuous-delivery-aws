@@ -215,14 +215,14 @@ steps:
       every: true
       gates:
       - left: '%actions.fileContents%'
-      - left: '/AZURE_WEBAPP_NAME:\s*%user.login%/gi'
-        operator: test
-        right: '%actions.fileContents%'
+      # - left: '/AZURE_WEBAPP_NAME:\s*%user.login%/gi'
+      #   operator: test
+      #   right: '%actions.fileContents%'
       else: 
       - type: respond
         with: 0Xe_unexpected.md
         data:
-          expected: commit the file `.github/workflows/spinup-destroy.yml` and start the `AZURE_WEBAPP_NAME` with your GitHub username
+          expected: commit the file `.github/workflows/spinup-destroy.yml` and set the variable `AZURE_WEBAPP_NAME` to start with your GitHub username
     # we formally request their approval
     - type: requestReviewFromRegistrant
       pullRequest: Configure cloud provider
