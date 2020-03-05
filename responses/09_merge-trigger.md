@@ -4,7 +4,7 @@ Deployments to production can be manual (like through a Chat Ops command), or au
 
 We'll trigger a deployment to the production environment whenever something is committed to master. Our master branch is protected, so the only way for commits to appear on master is for a pull request to have been created and gone through the proper review process and merged.
 
-## Step 9: Write the production deployment trigger
+## Step 8: Write the production deployment trigger
 
 Let's create a new workflow that deals specifically with commits to master and handles deployments to prod.
 
