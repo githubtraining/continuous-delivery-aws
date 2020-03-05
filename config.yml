@@ -212,7 +212,11 @@ steps:
       filename: '.github/workflows/spinup-destroy.yml'
       required: false
     - type: gate
-      left: '%actions.fileContents%'
+      gates:
+      - left: '%actions.fileContents%'
+      - left: '/AZURE_APP_PLAN:\s*%user.login%/gi'
+        operator: test
+        right: '%actions.fileContents%'
       else: 
       - type: respond
         with: 0Xe_unexpected.md
