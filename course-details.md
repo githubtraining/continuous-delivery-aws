@@ -4,6 +4,7 @@ Continuous Delivery is the practice of delivering software faster and with highe
 
 In this course, we focus on using workflows in GitHub Actions to deploy pull requests automatically to a staging environment, and to deploy all merged commits to production.
 
+**Please note**: You may need a credit card to create an account with a cloud provider. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to a cloud provider. If you'd like to continue with the course without an account with a cloud provider, Learning Lab will still respond, but none of the deployments will work.
 
 ## What you'll learn
 
