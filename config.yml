@@ -1,6 +1,6 @@
 # Course information
 title: "GitHub Actions: Continuous Delivery"
-description: Create two deployment workflows using AWS.
+description: Create two deployment workflows using GitHub Actions and your favorite cloud.
 tags:
   - GitHub Actions
   - Workflows
@@ -212,6 +212,7 @@ steps:
       filename: '.github/workflows/spinup-destroy.yml'
       required: false
     - type: gate
+      every: true
       gates:
       - left: '%actions.fileContents%'
       - left: '/AZURE_APP_PLAN:\s*%user.login%/gi'
@@ -221,7 +222,7 @@ steps:
       - type: respond
         with: 0Xe_unexpected.md
         data:
-          expected: commit the file `.github/workflows/spinup-destroy.yml`
+          expected: commit the file `.github/workflows/spinup-destroy.yml` and start the `AZURE_APP_NAME` with your GitHub username
     # we formally request their approval
     - type: requestReviewFromRegistrant
       pullRequest: Configure cloud provider
