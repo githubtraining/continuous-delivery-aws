@@ -32,7 +32,7 @@ All of this happens automatically once a pull request is merged!
         uses: mattdavis0351/actions/docker-gpr@v1
         with:
           repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          image-name: tic-tac-toe
+          image-name: {{user.login}}-aws-ttt
     ```
 1. Commit the workflow to this branch.
 
@@ -99,5 +99,5 @@ jobs:
         uses: mattdavis0351/actions/docker-gpr@v1
         with:
           repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          image-name: tic-tac-toe
+          image-name: {{user.login}}-aws-ttt
 ```
