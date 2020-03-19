@@ -2,11 +2,11 @@
 
 <h1 align="center">Course: Continuous Delivery using GitHub Actions</h1>
 
-This repository powers the Learning Lab course [_Continuous Delivery using GitHub Actions_](https://lab.github.com/githubtraining/github-actions:-continuous-delivery). 
+This repository powers the Learning Lab course [_Continuous Delivery using GitHub Actions_](https://lab.github.com/githubtraining/github-actions:-continuous-delivery-with-aws/). 
 
 Every Learning Lab course is made up of:
-- a [course repository](https://github.com/githubtraining/continuous-delivery), and
-- a [template repository](https://github.com/githubtraining/continuous-delivery-template)
+- a [course repository](https://github.com/githubtraining/continuous-delivery-aws), and
+- a [template repository](https://github.com/githubtraining/continuous-delivery-aws-template)
 
 The course repository is written in YAML and Markdown. The template repository could be written in any language that supports the learning objectives.
 
