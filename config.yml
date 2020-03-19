@@ -9,7 +9,7 @@ tags:
   - Deployment
 template:
     name: github-actions-continuous-delivery
-    repo: continuous-delivery-template
+    repo: continuous-delivery-aws-template
 
 # Before
 before:
