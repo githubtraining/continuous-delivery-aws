@@ -1,8 +1,8 @@
 <p align="center"><a href="https://lab.github.com/"><img alt="Learning Lab bot" src="https://user-images.githubusercontent.com/16547949/62085817-83232580-b22a-11e9-8693-7c54205b04e5.png"></a></p>
 
-<h1 align="center">Course: Continuous Delivery using GitHub Actions</h1>
+<h1 align="center">Course: GitHub Actions: Continuous Delivery with AWS</h1>
 
-This repository powers the Learning Lab course [_Continuous Delivery using GitHub Actions_](https://lab.github.com/githubtraining/github-actions:-continuous-delivery-with-aws/). 
+This repository powers the Learning Lab course [_GitHub Actions: Continuous Delivery with AWS_](https://lab.github.com/githubtraining/github-actions:-continuous-delivery-with-aws/). 
 
 Every Learning Lab course is made up of:
 - a [course repository](https://github.com/githubtraining/continuous-delivery-aws), and
