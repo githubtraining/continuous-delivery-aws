@@ -1,15 +1,15 @@
 # Course information
-title: "GitHub Actions: Continuous Delivery"
+title: "GitHub Actions: Continuous Delivery with AWS"
 description: Create two deployment workflows using AWS.
 tags:
   - GitHub Actions
   - Workflows
   - CD
-  - Continuous Delivery
+  - Amazon Web Services (AWS)
   - Deployment
 template:
     name: github-actions-continuous-delivery
-    repo: continuous-delivery-template
+    repo: continuous-delivery-aws-template
 
 # Before
 before:
