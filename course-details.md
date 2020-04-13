@@ -31,7 +31,7 @@ Before you start, you should be familiar with GitHub and Continuous Integration.
 
 - [Introduction to GitHub](https://lab.github.com/githubtraining/introduction-to-github)
 - [Hello GitHub Actions!](https://lab.github.com/github/hello-github-actions!)
-- [Continuous Integration with GitHub Actions](https://lab.github.com/githubtraining/set-up-continuous-integration-with-github-actions)
+- [GitHub Actions: Continuous Integration](https://lab.github.com/githubtraining/github-actions:-continuous-integration/)
 
 ## Projects used
 This course makes use of the following technologies:
