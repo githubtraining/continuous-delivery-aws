@@ -252,7 +252,24 @@ steps:
   actions: 
 
   # We validate
-  #- type: gate
+  - type: getFileContents
+    action_id: fileContents
+    filename: '.github/workflows/deploy-prod.yml'
+    required: false
+
+    # We validate that trigger is correct
+  - type: gate
+    every: true
+    gate:
+    - left: '%payload.pull_request.title%'
+      operator: ===
+      right: Production deployment workflow
+    - left: '%actions.fileContents%'
+    else:
+    - type: respond
+      with: 0Xe_unexpected.md
+      data:
+        expected: commit the file `.github/workflows/deploy-prod.yml` on a pull request titled "Production deployment workflow"
 
 # Step 10: Choose the environment for AWS
 
