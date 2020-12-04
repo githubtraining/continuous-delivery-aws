@@ -2,7 +2,7 @@
 
 We'll learn how to create a workflow that enables Continuous Delivery. You'll:
 - create a workflow to deploy to staging based on a label
-- create a workflow to deploy to production based on merging to master
+- create a workflow to deploy to production based on merging to main
 
 Before you start, you should be familiar with GitHub and Continuous Integration. If you aren't sure where to start, you may want to check out these two Learning Lab courses:
 

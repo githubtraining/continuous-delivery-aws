@@ -1,4 +1,4 @@
-Great! The syntax you used tells GitHub Actions to only run that workflow when a commit is made to the master branch. 
+Great! The syntax you used tells GitHub Actions to only run that workflow when a commit is made to the main branch. 
 
 # Deploying to production
 
@@ -10,7 +10,7 @@ In our case, we can match our production environment to be exactly like our stag
 
 ## Step 9: Complete the deployment to production workflow
 
-### :keyboard: Commit the steps to the production workflow that allow you to deploy on merge to master
+### :keyboard: Commit the steps to the production workflow that allow you to deploy on merge to main
 
 1. Edit the `deploy-prod.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/production-deployment-workflow/.github/workflows/deploy-prod.yml?) _(We recommend opening the quick link in another tab)_
 2. Add a `build` and `deploy` job to the workflow
@@ -23,7 +23,7 @@ name: Production deployment
 on: 
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -35,7 +35,7 @@ jobs:
         run: |
           npm install
           npm run build
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@main
         with:
           name: webpack artifacts
           path: public/
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Download built artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@main
         with:
           name: webpack artifacts
           path: public
