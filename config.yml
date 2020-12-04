@@ -260,7 +260,7 @@ steps:
     # We validate that trigger is correct
   - type: gate
     every: true
-    gate:
+    gates:
     - left: '%payload.pull_request.title%'
       operator: ===
       right: Production deployment workflow
