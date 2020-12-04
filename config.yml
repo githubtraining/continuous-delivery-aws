@@ -13,7 +13,7 @@ template:
 
 # Before
 before:
-  # Repository must have a master branch with the working code, and 4 other branches:
+  # Repository must have a main branch with the working code, and 4 other branches:
     # staging-workflow: with the workflow file stub for staging from label
     # aws-configuration: with blank/stub files for `aws-config.yml` and `sam-template.yml`
     # production-deployment-workflow: with the workflow file stub for production deploy from merge
@@ -135,7 +135,7 @@ steps:
       right: closed
     - left: '%payload.pull_request.merged%'
 
-    # we reprotect master for the next PR
+    # we reprotect main for the next PR
   - type: updateBranchProtection
 
 # PART 2: AWS CONFIGURATION
@@ -194,11 +194,11 @@ steps:
   # we merge
   - type: mergeBranch
     head: aws-configuration
-    base: master
+    base: main
     
-  # merge master into staging-test so staging-test has the appropriate updates
+  # merge main into staging-test so staging-test has the appropriate updates
   - type: mergeBranch
-    head: master
+    head: main
     base: staging-test
 
   # we must prepare next pr now so we can point to it. We ask the user to test this action by adding a label
@@ -252,7 +252,24 @@ steps:
   actions: 
 
   # We validate
-  #- type: gate
+  - type: getFileContents
+    action_id: fileContents
+    filename: '.github/workflows/deploy-prod.yml'
+    required: false
+
+    # We validate that trigger is correct
+  - type: gate
+    every: true
+    gates:
+    - left: '%payload.pull_request.title%'
+      operator: ===
+      right: Production deployment workflow
+    - left: '%actions.fileContents%'
+    else:
+    - type: respond
+      with: 0Xe_unexpected.md
+      data:
+        expected: commit the file `.github/workflows/deploy-prod.yml` on a pull request titled "Production deployment workflow"
 
 # Step 10: Choose the environment for AWS
 
@@ -263,7 +280,7 @@ steps:
   # event: commit, user writes the environment
   
 - title: Complete the deployment to production workflow
-  description: Commit the steps to the production workflow that allow you to deploy on merge to master.
+  description: Commit the steps to the production workflow that allow you to deploy on merge to main.
   event: pull_request
   link: '{{ repoUrl }}/pull/3'
   actions:
@@ -298,7 +315,7 @@ steps:
 # We remove branch protections 
   - type: removeBranchProtection 
 
-# We tell the user to merge, and that their merge will bring the action into `master`, and will also create a deployment into production
+# We tell the user to merge, and that their merge will bring the action into `main`, and will also create a deployment into production
   - type: respond
     with: 12_merge.md
 
